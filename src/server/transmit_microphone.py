@@ -1,4 +1,4 @@
-from multiprocessing.pool import ThreadPool
+from multiprocessing.pool import AsyncResult, ThreadPool
 from threading import Event, Thread
 from time import sleep
 
@@ -12,6 +12,7 @@ CHANNELS = 2
 CHUNK = 1024
 FORMAT = paInt16
 RATE = 44100
+SERIAL_TIMEOUT_SECONDS = 1
 
 
 class Transmitter(Thread):
@@ -19,8 +20,11 @@ class Transmitter(Thread):
         super().__init__()
         self.__audio = PyAudio()
         self.__channel = 0
-        self.__ports = self.__enumerate_serial_ports()
-        print("Serial ports:", self.__ports)
+        self.__transmitter_ports = self.__enumerate_transmitters()
+        print(
+            "Serial ports:",
+            self.__transmitter_ports if self.__transmitter_ports else 'none'
+        )
         self.__kill_flag = Event()
         self.__transmit_flag = Event()
 
@@ -34,45 +38,55 @@ class Transmitter(Thread):
 
     @property
     def ports(self) -> list[str]:
-        return self.__ports
+        return self.__transmitter_ports
 
     @property
     def transmitting(self) -> bool:
         return self.__transmit_flag.is_set()
 
-    def __enumerate_serial_ports(self) -> list[str]:
-        possible_ports: list[str] = [f"COM{i + 1}" for i in range(256)]
+    def __enumerate_transmitters(self) -> list[str]:
+        self.__transmitter_ports = [f"COM{i + 1}" for i in range(256)]
+        results = self.__mass_serial_transmit(b"e")
         valid_ports: list[str] = []
-        for port in possible_ports:
-            try:
-                s = Serial(port)
-                s.close()
+        for result in results:
+            success, port = result.get()
+            if success:
                 valid_ports.append(port)
-            except (OSError, SerialException):
-                pass
+        if not valid_ports:
+            print(
+                "ERROR: No valid transmitters found,",
+                "please check connections and relaunch the program.",
+                "Exiting..."
+            )
+            exit(1)
         return valid_ports
 
-    def __mass_serial_job(self, port: str, value: bytes) -> tuple[bool, str]:
+    def __transmit_serial(self, port: str, value: bytes) -> tuple[bool, str]:
         try:
-            with Serial(port, BAUD, timeout=1, write_timeout=1) as serial_port:
+            with Serial(
+                port,
+                BAUD,
+                timeout=SERIAL_TIMEOUT_SECONDS,
+                write_timeout=SERIAL_TIMEOUT_SECONDS
+            ) as serial_port:
                 serial_port.write(value)
                 serial_port.flush()
                 confirmation = serial_port.read()
                 if confirmation != value:
                     return False, port
             return True, port
-        except SerialTimeoutException:
+        except (OSError, SerialException, SerialTimeoutException):
             return False, port
 
-    def __serial_callback(self, result: tuple[bool, str]) -> None:
-        success, port = result
-        if not success:
-            print(f"ERROR: Channel transmission failed on port {port}")
+    # def __serial_callback(self, result: tuple[bool, str]) -> None:
+    #     success, port = result
+    #     if not success:
+    #         print(f"ERROR: Channel transmission failed on port {port}")
 
-    def __serial_error_callback(self, exception: BaseException) -> None:
-        print("ERROR: Channel transmission failed with unexpected exception",
-            f"\"{exception}\""
-        )
+    # def __serial_error_callback(self, exception: BaseException) -> None:
+    #     print("ERROR: Channel transmission failed with unexpected exception",
+    #         f"\"{exception}\""
+    #     )
 
     def __stream_audio(self) -> None:
         stream_in = self.__audio.open(format=FORMAT,
@@ -95,18 +109,21 @@ class Transmitter(Thread):
         stream_in.close()
         stream_out.close()
 
-    def __transmit_channel(self) -> None:
-        pool = ThreadPool(processes=len(self.__ports))
-        channel = self.__channel.to_bytes(1, "big")
-        for port in self.__ports:
-            pool.apply_async(
-                self.__mass_serial_job,
-                (port, channel),
-                callback=self.__serial_callback,
-                error_callback=self.__serial_error_callback
+    def __mass_serial_transmit(self, value: bytes) -> list[AsyncResult]:
+        pool = ThreadPool(processes=len(self.__transmitter_ports))
+        async_results = []
+        for port in self.__transmitter_ports:
+            async_results.append(
+                pool.apply_async(
+                    self.__transmit_serial,
+                    (port, value)  # ,
+                    # callback=self.__serial_callback,
+                    # error_callback=self.__serial_error_callback
+                )
             )
         pool.close()
         pool.join()
+        return async_results
 
     def close(self) -> None:
         self.__kill_flag.set()
@@ -115,8 +132,8 @@ class Transmitter(Thread):
         self.__audio.terminate()
 
     def refresh_ports(self) -> None:
-        self.__ports = self.__enumerate_serial_ports()
-        print("Serial ports:", self.__ports)
+        self.__transmitter_ports = self.__enumerate_transmitters()
+        print("Serial ports:", self.__transmitter_ports)
 
     def run(self) -> None:
         print("Ready to transmit")
@@ -124,7 +141,13 @@ class Transmitter(Thread):
             self.__transmit_flag.wait()
             if self.__kill_flag.is_set():
                 break
-            self.__transmit_channel()
+            results = self.__mass_serial_transmit(
+                self.__channel.to_bytes(1, "big")
+            )
+            for result in results:
+                success, port = result.get()
+                if not success:
+                    print(f"ERROR: Channel transmission failed on port {port}")
             self.__stream_audio()
 
     def start_transmitting(self) -> None:
