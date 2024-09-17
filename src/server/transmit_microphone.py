@@ -1,13 +1,16 @@
+# TODO: Overhaul to keep serial connections open for transmitters
+#           maybe closing on error and enforcing reenumarate?
+
 from multiprocessing.pool import AsyncResult, ThreadPool
 from threading import Event, Thread
 from time import sleep
 
 from pyaudio import PyAudio, paInt16
 from pynput.keyboard import Key, KeyCode, Listener
-from serial import Serial, SerialException, SerialTimeoutException  # type: ignore
+from serial import PARITY_NONE, Serial, SerialException, SerialTimeoutException  # type: ignore
 
 
-BAUD = 19200
+BAUD = 9600
 CHANNELS = 2
 CHUNK = 1024
 FORMAT = paInt16
@@ -61,22 +64,21 @@ class Transmitter(Thread):
             exit(1)
         return valid_ports
 
-    def __transmit_serial(self, port: str, value: bytes) -> tuple[bool, str]:
-        try:
-            with Serial(
-                port,
-                BAUD,
-                timeout=SERIAL_TIMEOUT_SECONDS,
-                write_timeout=SERIAL_TIMEOUT_SECONDS
-            ) as serial_port:
-                serial_port.write(value)
-                serial_port.flush()
-                confirmation = serial_port.read()
-                if confirmation != value:
-                    return False, port
-            return True, port
-        except (OSError, SerialException, SerialTimeoutException):
-            return False, port
+    def __mass_serial_transmit(self, value: bytes) -> list[AsyncResult]:
+        pool = ThreadPool(processes=len(self.__transmitter_ports))
+        async_results = []
+        for port in self.__transmitter_ports:
+            async_results.append(
+                pool.apply_async(
+                    self.__transmit_serial,
+                    (port, value)  # ,
+                    # callback=self.__serial_callback,
+                    # error_callback=self.__serial_error_callback
+                )
+            )
+        pool.close()
+        pool.join()
+        return async_results
 
     # def __serial_callback(self, result: tuple[bool, str]) -> None:
     #     success, port = result
@@ -109,21 +111,26 @@ class Transmitter(Thread):
         stream_in.close()
         stream_out.close()
 
-    def __mass_serial_transmit(self, value: bytes) -> list[AsyncResult]:
-        pool = ThreadPool(processes=len(self.__transmitter_ports))
-        async_results = []
-        for port in self.__transmitter_ports:
-            async_results.append(
-                pool.apply_async(
-                    self.__transmit_serial,
-                    (port, value)  # ,
-                    # callback=self.__serial_callback,
-                    # error_callback=self.__serial_error_callback
-                )
-            )
-        pool.close()
-        pool.join()
-        return async_results
+    def __transmit_serial(self, port: str, value: bytes) -> tuple[bool, str]:
+        try:
+            with Serial(
+                port,
+                BAUD,
+                timeout=SERIAL_TIMEOUT_SECONDS,
+                write_timeout=SERIAL_TIMEOUT_SECONDS,
+                parity=PARITY_NONE,
+                stopbits=1
+            ) as serial_port:
+                sleep(SERIAL_TIMEOUT_SECONDS)
+                serial_port.write(value)
+                serial_port.flush()
+                confirmation = serial_port.read()
+                print(f"{port} in: {confirmation}")
+                if confirmation != value:
+                    return False, port
+            return True, port
+        except (OSError, SerialException, SerialTimeoutException):
+            return False, port
 
     def close(self) -> None:
         self.__kill_flag.set()
@@ -142,7 +149,7 @@ class Transmitter(Thread):
             if self.__kill_flag.is_set():
                 break
             results = self.__mass_serial_transmit(
-                self.__channel.to_bytes(1, "big")
+                str(self.__channel).encode()
             )
             for result in results:
                 success, port = result.get()
@@ -194,18 +201,19 @@ class KeyboardCallbacks:
 
 
 def print_help() -> None:
-    print("Press 0-9 to set channel,",
+    print("\nPress 0-9 to set channel,",
         "space to start/stop transmitting,",
         "r to refresh ports,",
         "p to print ports,",
         "h to print help",
-        "esc to exit the program",
+        "esc to exit the program\n",
         sep="\n"
     )
 
 
 if __name__ == "__main__":
     print("Initializing...")
+    print_help()
     key_states: dict[Key, bool] = {}
     transmitter = Transmitter()
     KeyboardCallbacks.transmitter = transmitter
