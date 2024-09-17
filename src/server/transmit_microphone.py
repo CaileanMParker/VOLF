@@ -4,7 +4,7 @@ from time import sleep
 
 from pyaudio import PyAudio, paInt16
 from pynput.keyboard import Key, KeyCode, Listener
-from serial import Serial, SerialException, SerialTimeoutException
+from serial import Serial, SerialException, SerialTimeoutException  # type: ignore
 
 
 BAUD = 19200
