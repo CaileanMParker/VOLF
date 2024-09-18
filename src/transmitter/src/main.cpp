@@ -1,22 +1,14 @@
 #include <Arduino.h>
-
-
-namespace configs
-{
-  const int baud = 9600;
-  const byte preamble = 178; // 10110010
-  const int pulseWidthMillis = 5;
-  const int transmitPin = 13;
-}
+#include "transmitter.h"
 
 
 void transmitChannel(int channel) {
-  for(int i = 7; i >= 0; i--) {
+  for(int i = 7; i >= 0; i--) { // Transmit preamble
     digitalWrite(configs::transmitPin, (configs::preamble >> i) & 1);
     delay(configs::pulseWidthMillis);
   }
   // for(int i = 7; i >= 0; i--) {
-  for(byte i = 0; i < 8; i++) {
+  for(byte i = 0; i < 8; i++) { // Transmit channel
     digitalWrite(configs::transmitPin, (channel >> i) & 1);
     delay(configs::pulseWidthMillis);
   }

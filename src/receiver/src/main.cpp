@@ -1,23 +1,6 @@
 // TODO: Refactor
-
-#define DEBUG
-
-
 #include <Arduino.h>
-
-
-byte receiverChannel = 1;
-
-
-namespace configs
-{
-  const int channelTogglePin = 2;
-  const int gateControlPin = 13;
-  const int levelChangeThreshold = 100;
-  const byte preamble = 178;
-  const int pulseWidthMillis = 5;
-  const int receivePin = A1;
-}
+#include "receiver.h"
 
 
 int awaitPreamble() {
@@ -79,10 +62,19 @@ byte getTransmissionChannel(int previousReading) {
 void incrementChannel() {
   receiverChannel++;
   if (receiverChannel > 9) { receiverChannel = 1; }
+  toggleAudio();
 #ifdef DEBUG
   Serial.print("Receiver channel: ");
   Serial.println(receiverChannel);
 #endif
+}
+
+
+void toggleAudio() {
+  digitalWrite(configs::gateControlPin, HIGH);
+  if (transmissionChannel != receiverChannel && transmissionChannel > 0) {
+    digitalWrite(configs::gateControlPin, LOW);
+  }
 }
 
 
@@ -104,9 +96,6 @@ void setup() {
 
 void loop() {
   int currentReading = awaitPreamble();
-  byte transmissionChannel = getTransmissionChannel(currentReading);
-  digitalWrite(configs::gateControlPin, LOW);
-  if (transmissionChannel == receiverChannel || transmissionChannel == 0) {
-    digitalWrite(configs::gateControlPin, HIGH);
-  }
+  transmissionChannel = getTransmissionChannel(currentReading);
+  toggleAudio();
 }
