@@ -4,20 +4,21 @@
 namespace configs
 {
   const int baud = 9600;
-  const boolean preamble[8] = {1, 0, 1, 1, 0, 0, 1, 0};
-  const int transmissionDelay = 5;
+  const byte preamble = 178; // 10110010
+  const int pulseWidthMillis = 5;
   const int transmitPin = 3;
 }
 
 
 void transmitChannel(int channel) {
-  for(byte i = 0; i < 8; i++) {
-    digitalWrite(configs::transmitPin, configs::preamble[i]);
-    delay(configs::transmissionDelay);
+  for(int i = 7; i >= 0; i--) {
+    digitalWrite(configs::transmitPin, (configs::preamble >> i) & 1);
+    delay(configs::pulseWidthMillis);
   }
+  // for(int i = 7; i >= 0; i--) {
   for(byte i = 0; i < 8; i++) {
     digitalWrite(configs::transmitPin, (channel >> i) & 1);
-    delay(configs::transmissionDelay);
+    delay(configs::pulseWidthMillis);
   }
   digitalWrite(configs::transmitPin, LOW);
 }
