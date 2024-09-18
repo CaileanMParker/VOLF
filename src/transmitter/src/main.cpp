@@ -3,32 +3,23 @@
 
 namespace configs
 {
-    const int baud = 9600;
-    const int transmitPin = 3;
+  const int baud = 9600;
+  const boolean preamble[8] = {1, 0, 1, 1, 0, 0, 1, 0};
+  const int transmissionDelay = 5;
+  const int transmitPin = 3;
 }
 
 
-void transmit_channel(int channel) {
-  digitalWrite(configs::transmitPin, HIGH);
-  delay(5);
-  digitalWrite(configs::transmitPin, LOW);
-  delay(5);
-  digitalWrite(configs::transmitPin, HIGH);
-  delay(5);
-  digitalWrite(configs::transmitPin, HIGH);
-  delay(5);
-  digitalWrite(configs::transmitPin, LOW);
-  delay(5);
-  digitalWrite(configs::transmitPin, LOW);
-  delay(5);
-  digitalWrite(configs::transmitPin, HIGH);
-  delay(5);
-  digitalWrite(configs::transmitPin, LOW);
-  delay(5);
+void transmitChannel(int channel) {
+  for(byte i = 0; i < 8; i++) {
+    digitalWrite(configs::transmitPin, configs::preamble[i]);
+    delay(configs::transmissionDelay);
+  }
   for(byte i = 0; i < 8; i++) {
     digitalWrite(configs::transmitPin, (channel >> i) & 1);
-    delay(5);
+    delay(configs::transmissionDelay);
   }
+  digitalWrite(configs::transmitPin, LOW);
 }
 
 
@@ -42,10 +33,9 @@ void setup() {
 
 
 void loop() {
-  char inChar;
-  while (Serial.available() > 0) {
-    inChar = Serial.read();
-    if (isDigit(inChar)) { transmit_channel(inChar - '0'); }
+  if (Serial.available() > 0) {
+    char inChar = Serial.read();
+    if (isDigit(inChar)) { transmitChannel(inChar - '0'); }
     Serial.write(inChar);
     Serial.flush();
   }
