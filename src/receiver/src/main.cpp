@@ -1,5 +1,4 @@
 // TODO: Refactor
-#include <Arduino.h>
 #include "receiver.h"
 
 

@@ -1,6 +1,8 @@
 #ifndef TRANSMITTER_HEADER
 #define TRANSMITTER_HEADER
 
+#include <Arduino.h>
+
 namespace configs
 {
   const int baud = 9600;

@@ -1,7 +1,9 @@
 #ifndef RECEIVER_HEADER
 #define RECEIVER_HEADER
 
-#define DEBUG
+// #define DEBUG
+
+#include <Arduino.h>
 
 byte receiverChannel = 1;
 byte transmissionChannel = 0;
