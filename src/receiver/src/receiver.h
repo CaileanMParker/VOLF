@@ -1,7 +1,8 @@
 #ifndef RECEIVER_HEADER
 #define RECEIVER_HEADER
 
-// #define DEBUG
+#define DEBUG
+#define READONLY
 
 #include <Arduino.h>
 
@@ -21,6 +22,7 @@ namespace configs
 int awaitPreamble();
 byte getTransmissionChannel(int previousReading);
 void incrementChannel();
+void readContinual(int delayMillis, long sampleSize);
 void toggleAudio();
 
 #endif

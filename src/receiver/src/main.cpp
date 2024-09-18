@@ -69,6 +69,27 @@ void incrementChannel() {
 }
 
 
+void readContinual(int delayMillis, long sampleSize) {
+  if (sampleSize > 1) {
+    int readings[sampleSize];
+    while (true) {
+      for (long i = 0; i < sampleSize; i++) {
+        readings[i] = analogRead(configs::receivePin);
+        delay(delayMillis);
+      }
+      for (long i = 0; i < sampleSize; i++) {
+        Serial.println(readings[i]);
+      }
+    }
+  } else {
+    while (true) {
+      Serial.println(analogRead(configs::receivePin));
+      delay(delayMillis);
+    }
+  }
+}
+
+
 void toggleAudio() {
   digitalWrite(configs::gateControlPin, HIGH);
   if (transmissionChannel != receiverChannel && transmissionChannel > 0) {
@@ -94,6 +115,10 @@ void setup() {
 
 
 void loop() {
+#if defined(DEBUG) || defined(READONLY)
+  readContinual(configs::pulseWidthMillis, 1000);
+#endif
+
   int currentReading = awaitPreamble();
   transmissionChannel = getTransmissionChannel(currentReading);
   toggleAudio();
