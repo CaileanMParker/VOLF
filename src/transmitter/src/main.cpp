@@ -6,7 +6,7 @@ namespace configs
   const int baud = 9600;
   const byte preamble = 178; // 10110010
   const int pulseWidthMillis = 5;
-  const int transmitPin = 3;
+  const int transmitPin = 13;
 }
 
 

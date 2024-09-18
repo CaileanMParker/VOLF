@@ -1,8 +1,18 @@
+// TODO: Refactor
+
+#define DEBUG
+
+
 #include <Arduino.h>
+
+
+byte receiverChannel = 1;
 
 
 namespace configs
 {
+  const int channelTogglePin = 2;
+  const int gateControlPin = 13;
   const int levelChangeThreshold = 100;
   const byte preamble = 178;
   const int pulseWidthMillis = 5;
@@ -10,8 +20,29 @@ namespace configs
 }
 
 
-void setup() {
-  Serial.begin(9600); // Debug
+int awaitPreamble() {
+  int currentReading;
+  bool previousBit = 0;
+  int previousReading = 0;
+  byte samplePreamble = 0;
+  while (samplePreamble != configs::preamble) {
+    delay(configs::pulseWidthMillis);
+    currentReading = analogRead(configs::receivePin);
+    samplePreamble = samplePreamble << 1;
+    if (
+      (previousBit &&
+        (currentReading > (previousReading - configs::levelChangeThreshold))) //Signal stayed HIGH
+      ||
+      (!previousBit &&
+        (currentReading >= (previousReading + configs::levelChangeThreshold))) //Signal became HIGH
+    ) {
+      samplePreamble |= 1;
+      previousBit = 1;
+    }
+    else { previousBit = 0; } // Signal is LOW
+    previousReading = currentReading;
+  }
+  return currentReading;
 }
 
 
@@ -35,62 +66,47 @@ byte getTransmissionChannel(int previousReading) {
     }
     previousReading = currentReading;
   }
+
+#ifdef DEBUG
+  Serial.print("Transmission channel: ");
+  Serial.println(channel);
+#endif
+
   return channel;
 }
 
 
-byte addSignalBit(byte signal) {
-  static bool previousBit = 0;
-  static int previousReading = 0;
-  delay(configs::pulseWidthMillis);
-  int currentReading = analogRead(configs::receivePin);
-  signal = signal << 1;
-  if (
-    (previousBit &&
-      (currentReading > (previousReading - configs::levelChangeThreshold))) //Signal stayed HIGH
-    ||
-    (!previousBit &&
-      (currentReading >= (previousReading + configs::levelChangeThreshold))) //Signal became HIGH
-  ) { signal |= 1; }
-  previousBit = signal & 1;
-  previousReading = currentReading;
-  return signal;
+void incrementChannel() {
+  receiverChannel++;
+  if (receiverChannel > 9) { receiverChannel = 1; }
+#ifdef DEBUG
+  Serial.print("Receiver channel: ");
+  Serial.println(receiverChannel);
+#endif
 }
 
 
-bool getSignalBit() {
-  static bool previousBit = 0;
-  static int previousReading = 0;
+void setup() {
+  pinMode(configs::gateControlPin, OUTPUT);
+  digitalWrite(configs::gateControlPin, HIGH);
+  pinMode(configs::channelTogglePin, INPUT);
+  attachInterrupt(
+    digitalPinToInterrupt(configs::channelTogglePin),
+    incrementChannel,
+    FALLING
+  );
 
-  delay(configs::pulseWidthMillis);
-  int currentReading = analogRead(configs::receivePin);
-  if (
-    (previousBit &&
-      (currentReading > (previousReading - configs::levelChangeThreshold))) //Signal stayed HIGH
-    ||
-    (!previousBit &&
-      (currentReading >= (previousReading + configs::levelChangeThreshold))) //Signal became HIGH
-  ) { previousBit = 1; }
-  else { previousBit = 0; } //Signal is LOW
-
-  previousReading = currentReading;
-  return previousBit;
+#ifdef DEBUG
+  Serial.begin(9600);
+#endif
 }
 
 
 void loop() {
-  // static byte receiverChannel = 4;
-  static byte transmissionChannel = 0;
-  static byte samplePreamble = 0;
-
-  samplePreamble = (samplePreamble << 1) | getSignalBit();
-
-  if (samplePreamble == configs::preamble) {
-    // for (byte i = 0; i < 8; i++) {
-    //   transmissionChannel = (transmissionChannel << 1) | getSignalBit();
-    // }
-    transmissionChannel = getTransmissionChannel(analogRead(configs::receivePin));
-
-    Serial.println(transmissionChannel); //DEBUG
+  int currentReading = awaitPreamble();
+  byte transmissionChannel = getTransmissionChannel(currentReading);
+  digitalWrite(configs::gateControlPin, LOW);
+  if (transmissionChannel == receiverChannel || transmissionChannel == 0) {
+    digitalWrite(configs::gateControlPin, HIGH);
   }
 }
