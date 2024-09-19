@@ -17,8 +17,9 @@ namespace configs
   inline constexpr int receivePin = A1;
 }
 
-int awaitPreamble();
-byte getTransmissionChannel(int previousReading);
+void awaitPreamble();
+byte getTransmissionChannel();
 void incrementChannel();
+inline byte readBitIntoByte(byte receivedByte);
 void readContinual(int delayMillis, long sampleSize);
 void toggleAudio();

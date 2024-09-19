@@ -21,8 +21,7 @@ void transmitChannel(int channel) {
     digitalWrite(configs::transmitPin, (configs::preamble >> i) & 1);
     delay(configs::pulseWidthMillis);
   }
-  for(int i = 7; i >= 0; i--) {
-  // for(byte i = 0; i < 8; i++) { // Transmit channel
+  for(int i = 7; i >= 0; i--) { // Transmit channel
     digitalWrite(configs::transmitPin, (channel >> i) & 1);
     delay(configs::pulseWidthMillis);
   }

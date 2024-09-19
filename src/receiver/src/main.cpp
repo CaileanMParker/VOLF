@@ -20,64 +20,18 @@ void setup() {
 }
 
 
-int awaitPreamble() {
-  int currentReading;
-  bool previousBit = 0;
-  int previousReading = 0;
+void awaitPreamble() {
   byte samplePreamble = 0;
   while (samplePreamble != configs::preamble) {
-    delay(configs::pulseWidthMillis);
-    currentReading = analogRead(configs::receivePin);
-    samplePreamble = samplePreamble << 1;
-    if (
-      (previousBit &&
-        (currentReading > (previousReading - configs::levelChangeThreshold))) //Signal stayed HIGH
-      ||
-      (!previousBit &&
-        (currentReading >= (previousReading + configs::levelChangeThreshold))) //Signal became HIGH
-    ) {
-      samplePreamble |= 1;
-      previousBit = 1;
-    }
-    else { previousBit = 0; } // Signal is LOW
-    previousReading = currentReading;
-
-#ifdef VERBOSE_DEBUG
-    char outString[7];
-    sprintf(outString, "%i %i %i", currentReading, previousBit, samplePreamble);
-    Serial.println(outString);
-#endif
-
+    samplePreamble = readBitIntoByte(samplePreamble);
   }
-  return currentReading;
 }
 
 
-byte getTransmissionChannel(int previousReading) {
-  bool previousBit = 0;
-  int channel = 0;
+byte getTransmissionChannel() {
+  byte channel = 0;
   for (byte i = 0; i < 8; i++) {
-    delay(configs::pulseWidthMillis);
-    int currentReading = analogRead(configs::receivePin);
-    channel = channel << 1;
-    if (
-      (previousBit &&
-        (currentReading > (previousReading - configs::levelChangeThreshold))) //Signal stayed HIGH
-      ||
-      (!previousBit &&
-        (currentReading >= (previousReading + configs::levelChangeThreshold))) //Signal became HIGH
-    ) {
-      channel |= 1;
-      // channel |= (1 << i);
-      previousBit = 1;
-    } else { previousBit = 0; } // Signal is LOW
-    previousReading = currentReading;
-
-#ifdef VERBOSE_DEBUG
-    char outString[7];
-    sprintf(outString, "%i %i %i", currentReading, previousBit, channel);
-    Serial.println(outString);
-#endif
+    channel = readBitIntoByte(channel);
   }
 
 #ifdef DEBUG
@@ -98,6 +52,37 @@ void incrementChannel() {
   Serial.print("Receiver channel: ");
   Serial.println(receiverChannel);
 #endif
+}
+
+
+inline byte readBitIntoByte(byte receivedByte) {
+  static int currentReading;
+  static bool previousBit = 0;
+  static int previousReading = 0;
+
+  delay(configs::pulseWidthMillis);
+  currentReading = analogRead(configs::receivePin);
+  receivedByte = receivedByte << 1;
+  if (
+    (previousBit &&
+      (currentReading > (previousReading - configs::levelChangeThreshold))) //Signal stayed HIGH
+    ||
+    (!previousBit &&
+      (currentReading >= (previousReading + configs::levelChangeThreshold))) //Signal became HIGH
+  ) {
+    receivedByte |= 1;
+    previousBit = 1;
+  }
+  else { previousBit = 0; } // Signal is LOW
+  previousReading = currentReading;
+
+#ifdef VERBOSE_DEBUG
+    char outString[7];
+    sprintf(outString, "%i %i %i", currentReading, previousBit, samplePreamble);
+    Serial.println(outString);
+#endif
+
+  return receivedByte;
 }
 
 
@@ -136,7 +121,7 @@ void loop() {
   readContinual(configs::pulseWidthMillis, 1);
 #endif
 
-  int currentReading = awaitPreamble();
-  transmissionChannel = getTransmissionChannel(currentReading);
+  awaitPreamble();
+  transmissionChannel = getTransmissionChannel();
   toggleAudio();
 }
