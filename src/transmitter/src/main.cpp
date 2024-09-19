@@ -1,4 +1,14 @@
+#include <Arduino.h>
 #include "transmitter.h"
+
+
+void setup() {
+  digitalWrite(configs::transmitPin, LOW);
+  pinMode(configs::transmitPin, OUTPUT);
+
+  Serial.begin(9600);
+  while (!Serial) { ; }
+}
 
 
 void transmitChannel(int channel) {
@@ -11,21 +21,12 @@ void transmitChannel(int channel) {
     digitalWrite(configs::transmitPin, (configs::preamble >> i) & 1);
     delay(configs::pulseWidthMillis);
   }
-  // for(int i = 7; i >= 0; i--) {
-  for(byte i = 0; i < 8; i++) { // Transmit channel
+  for(int i = 7; i >= 0; i--) {
+  // for(byte i = 0; i < 8; i++) { // Transmit channel
     digitalWrite(configs::transmitPin, (channel >> i) & 1);
     delay(configs::pulseWidthMillis);
   }
   digitalWrite(configs::transmitPin, LOW);
-}
-
-
-void setup() {
-  digitalWrite(configs::transmitPin, LOW);
-  pinMode(configs::transmitPin, OUTPUT);
-
-  Serial.begin(configs::baud);
-  while (!Serial) { ; }
 }
 
 

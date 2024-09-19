@@ -1,5 +1,23 @@
-// TODO: Refactor
+#include <Arduino.h>
 #include "receiver.h"
+
+
+void setup() {
+  pinMode(configs::gateControlPin, OUTPUT);
+  digitalWrite(configs::gateControlPin, HIGH);
+  pinMode(configs::channelTogglePin, INPUT);
+  attachInterrupt(
+    digitalPinToInterrupt(configs::channelTogglePin),
+    incrementChannel,
+    FALLING
+  );
+
+#if defined(DEBUG) || defined(READONLY) || defined(VERBOSE_DEBUG)
+  Serial.begin(9600);
+  Serial.print("Receiver initialized on channel: ");
+  Serial.println(receiverChannel);
+#endif
+}
 
 
 int awaitPreamble() {
@@ -23,11 +41,13 @@ int awaitPreamble() {
     }
     else { previousBit = 0; } // Signal is LOW
     previousReading = currentReading;
+
 #ifdef VERBOSE_DEBUG
     char outString[7];
     sprintf(outString, "%i %i %i", currentReading, previousBit, samplePreamble);
     Serial.println(outString);
 #endif
+
   }
   return currentReading;
 }
@@ -39,6 +59,7 @@ byte getTransmissionChannel(int previousReading) {
   for (byte i = 0; i < 8; i++) {
     delay(configs::pulseWidthMillis);
     int currentReading = analogRead(configs::receivePin);
+    channel = channel << 1;
     if (
       (previousBit &&
         (currentReading > (previousReading - configs::levelChangeThreshold))) //Signal stayed HIGH
@@ -46,12 +67,12 @@ byte getTransmissionChannel(int previousReading) {
       (!previousBit &&
         (currentReading >= (previousReading + configs::levelChangeThreshold))) //Signal became HIGH
     ) {
-      channel |= (1 << i);
+      channel |= 1;
+      // channel |= (1 << i);
       previousBit = 1;
-    } else { //Signal is LOW
-      previousBit = 0;
-    }
+    } else { previousBit = 0; } // Signal is LOW
     previousReading = currentReading;
+
 #ifdef VERBOSE_DEBUG
     char outString[7];
     sprintf(outString, "%i %i %i", currentReading, previousBit, channel);
@@ -72,6 +93,7 @@ void incrementChannel() {
   receiverChannel++;
   if (receiverChannel > 9) { receiverChannel = 1; }
   toggleAudio();
+
 #ifdef DEBUG
   Serial.print("Receiver channel: ");
   Serial.println(receiverChannel);
@@ -106,24 +128,6 @@ void toggleAudio() {
   if (transmissionChannel != receiverChannel && transmissionChannel > 0) {
     digitalWrite(configs::gateControlPin, LOW);
   }
-}
-
-
-void setup() {
-  pinMode(configs::gateControlPin, OUTPUT);
-  digitalWrite(configs::gateControlPin, HIGH);
-  pinMode(configs::channelTogglePin, INPUT);
-  attachInterrupt(
-    digitalPinToInterrupt(configs::channelTogglePin),
-    incrementChannel,
-    FALLING
-  );
-
-#if defined(DEBUG) || defined(READONLY) || defined(VERBOSE_DEBUG)
-  Serial.begin(9600);
-  Serial.print("Receiver initialized on channel: ");
-  Serial.println(receiverChannel);
-#endif
 }
 
 
