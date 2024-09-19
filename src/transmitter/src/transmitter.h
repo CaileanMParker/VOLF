@@ -1,6 +1,8 @@
 #ifndef TRANSMITTER_HEADER
 #define TRANSMITTER_HEADER
 
+// #define DEBUG
+
 #include <Arduino.h>
 
 namespace configs

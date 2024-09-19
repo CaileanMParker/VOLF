@@ -125,7 +125,7 @@ class Transmitter(Thread):
                 serial_port.write(value)
                 serial_port.flush()
                 confirmation = serial_port.read()
-                print(f"{port} in: {confirmation}")
+                # print(f"{port} in: {confirmation}")
                 if confirmation != value:
                     return False, port
             return True, port

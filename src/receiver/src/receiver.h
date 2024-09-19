@@ -1,8 +1,9 @@
 #ifndef RECEIVER_HEADER
 #define RECEIVER_HEADER
 
-#define DEBUG
-#define READONLY
+// #define DEBUG
+// #define VERBOSE_DEBUG
+// #define READONLY
 
 #include <Arduino.h>
 

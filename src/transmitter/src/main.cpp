@@ -2,6 +2,11 @@
 
 
 void transmitChannel(int channel) {
+#ifdef DEBUG
+  Serial.print("Transmitting channel ");
+  Serial.println(channel);
+#endif
+
   for(int i = 7; i >= 0; i--) { // Transmit preamble
     digitalWrite(configs::transmitPin, (configs::preamble >> i) & 1);
     delay(configs::pulseWidthMillis);

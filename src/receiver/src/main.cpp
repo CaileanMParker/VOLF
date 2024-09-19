@@ -23,6 +23,11 @@ int awaitPreamble() {
     }
     else { previousBit = 0; } // Signal is LOW
     previousReading = currentReading;
+#ifdef VERBOSE_DEBUG
+    char outString[7];
+    sprintf(outString, "%i %i %i", currentReading, previousBit, samplePreamble);
+    Serial.println(outString);
+#endif
   }
   return currentReading;
 }
@@ -47,6 +52,11 @@ byte getTransmissionChannel(int previousReading) {
       previousBit = 0;
     }
     previousReading = currentReading;
+#ifdef VERBOSE_DEBUG
+    char outString[7];
+    sprintf(outString, "%i %i %i", currentReading, previousBit, channel);
+    Serial.println(outString);
+#endif
   }
 
 #ifdef DEBUG
@@ -80,6 +90,7 @@ void readContinual(int delayMillis, long sampleSize) {
       for (long i = 0; i < sampleSize; i++) {
         Serial.println(readings[i]);
       }
+      Serial.println();
     }
   } else {
     while (true) {
@@ -108,15 +119,17 @@ void setup() {
     FALLING
   );
 
-#ifdef DEBUG
+#if defined(DEBUG) || defined(READONLY) || defined(VERBOSE_DEBUG)
   Serial.begin(9600);
+  Serial.print("Receiver initialized on channel: ");
+  Serial.println(receiverChannel);
 #endif
 }
 
 
 void loop() {
-#if defined(DEBUG) || defined(READONLY)
-  readContinual(configs::pulseWidthMillis, 1000);
+#ifdef READONLY
+  readContinual(configs::pulseWidthMillis, 1);
 #endif
 
   int currentReading = awaitPreamble();
