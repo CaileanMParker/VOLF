@@ -1,12 +1,14 @@
 #pragma once
 
+#include <Arduino.h>
+
 // #define DEBUG
 
-namespace configs
-{
+namespace configs {
   inline constexpr byte preamble = 178; // 10110010
-  inline constexpr int pulseWidthMillis = 5;
-  inline constexpr int transmitPin = 13;
+  inline constexpr uint32_t pulseWidthMillis = 5;
+  inline constexpr uint8_t transmitPin = 13;
 }
 
-void transmitChannel(int channel);
+void transmitByte(byte byteToTransmit);
+void transmitChannel(byte channel);

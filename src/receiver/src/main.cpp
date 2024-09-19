@@ -1,5 +1,8 @@
-#include <Arduino.h>
 #include "receiver.h"
+
+
+byte channels::receiver = 1;
+byte channels::transmitter = 9;
 
 
 void setup() {
@@ -29,8 +32,11 @@ void awaitPreamble() {
 
 
 byte getTransmissionChannel() {
+  constexpr uint8_t firstBitPosition = 0;
+  constexpr uint8_t lastBitPosition = 7;
+
   byte channel = 0;
-  for (byte i = 0; i < 8; i++) {
+  for (auto i = firstBitPosition; i <= lastBitPosition; i++) {
     channel = readBitIntoByte(channel);
   }
 
@@ -44,8 +50,8 @@ byte getTransmissionChannel() {
 
 
 void incrementChannel() {
-  receiverChannel++;
-  if (receiverChannel > 9) { receiverChannel = 1; }
+  channels::receiver++;
+  if (channels::receiver > 9) { channels::receiver = 1; }
   toggleAudio();
 
 #ifdef DEBUG
@@ -55,62 +61,29 @@ void incrementChannel() {
 }
 
 
-inline byte readBitIntoByte(byte receivedByte) {
-  static int currentReading;
-  static bool previousBit = 0;
-  static int previousReading = 0;
-
-  delay(configs::pulseWidthMillis);
-  currentReading = analogRead(configs::receivePin);
-  receivedByte = receivedByte << 1;
-  if (
-    (previousBit &&
-      (currentReading > (previousReading - configs::levelChangeThreshold))) //Signal stayed HIGH
-    ||
-    (!previousBit &&
-      (currentReading >= (previousReading + configs::levelChangeThreshold))) //Signal became HIGH
-  ) {
-    receivedByte |= 1;
-    previousBit = 1;
+void readContinual(int delayMillis, uint64_t sampleSize) {
+  while (sampleSize == 1) {
+    Serial.println(analogRead(configs::receivePin));
+    delay(delayMillis);
   }
-  else { previousBit = 0; } // Signal is LOW
-  previousReading = currentReading;
 
-#ifdef VERBOSE_DEBUG
-    char outString[7];
-    sprintf(outString, "%i %i %i", currentReading, previousBit, samplePreamble);
-    Serial.println(outString);
-#endif
-
-  return receivedByte;
-}
-
-
-void readContinual(int delayMillis, long sampleSize) {
-  if (sampleSize > 1) {
-    int readings[sampleSize];
-    while (true) {
-      for (long i = 0; i < sampleSize; i++) {
-        readings[i] = analogRead(configs::receivePin);
-        delay(delayMillis);
-      }
-      for (long i = 0; i < sampleSize; i++) {
-        Serial.println(readings[i]);
-      }
-      Serial.println();
-    }
-  } else {
-    while (true) {
-      Serial.println(analogRead(configs::receivePin));
+  int readings[sampleSize];
+  while (true) {
+    for (auto i = 0ULL; i < sampleSize; i++) {
+      readings[i] = analogRead(configs::receivePin);
       delay(delayMillis);
     }
+    for (auto i = 0ULL; i < sampleSize; i++) {
+      Serial.println(readings[i]);
+    }
+    Serial.println();
   }
 }
 
 
 void toggleAudio() {
   digitalWrite(configs::gateControlPin, HIGH);
-  if (transmissionChannel != receiverChannel && transmissionChannel > 0) {
+  if (channels::transmitter != channels::receiver && channels::transmitter > 0) {
     digitalWrite(configs::gateControlPin, LOW);
   }
 }
@@ -122,6 +95,6 @@ void loop() {
 #endif
 
   awaitPreamble();
-  transmissionChannel = getTransmissionChannel();
+  channels::transmitter = getTransmissionChannel();
   toggleAudio();
 }

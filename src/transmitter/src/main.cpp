@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include "transmitter.h"
 
 
@@ -11,29 +10,34 @@ void setup() {
 }
 
 
-void transmitChannel(int channel) {
+void transmitByte(byte byteToTransmit) {
+  constexpr uint8_t firstBitPosition = 0;
+  constexpr uint8_t lastBitPosition = 7;
+
+  for(auto i = lastBitPosition; i >= firstBitPosition; i--) {
+    digitalWrite(configs::transmitPin, (byteToTransmit >> i) & 1);
+    delay(configs::pulseWidthMillis);
+  }
+}
+
+
+void transmitChannel(byte channel) {
 #ifdef DEBUG
   Serial.print("Transmitting channel ");
   Serial.println(channel);
 #endif
 
-  for(int i = 7; i >= 0; i--) { // Transmit preamble
-    digitalWrite(configs::transmitPin, (configs::preamble >> i) & 1);
-    delay(configs::pulseWidthMillis);
-  }
-  for(int i = 7; i >= 0; i--) { // Transmit channel
-    digitalWrite(configs::transmitPin, (channel >> i) & 1);
-    delay(configs::pulseWidthMillis);
-  }
+  transmitByte(configs::preamble);
+  transmitByte(channel);
   digitalWrite(configs::transmitPin, LOW);
 }
 
 
 void loop() {
-  if (Serial.available() > 0) {
-    char inChar = Serial.read();
-    if (isDigit(inChar)) { transmitChannel(inChar - '0'); }
-    Serial.write(inChar);
-    Serial.flush();
-  }
+  if (!Serial.available()) return;
+
+  char inChar = Serial.read();
+  if (isDigit(inChar)) transmitChannel(static_cast<byte>(inChar));
+  Serial.write(inChar);
+  Serial.flush();
 }
