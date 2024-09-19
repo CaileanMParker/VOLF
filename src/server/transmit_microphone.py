@@ -1,6 +1,3 @@
-# TODO: Overhaul to keep serial connections open for transmitters
-#           maybe closing on error and enforcing reenumarate?
-
 from multiprocessing.pool import AsyncResult, ThreadPool
 from threading import Event, Thread
 from time import sleep
@@ -16,6 +13,8 @@ CHUNK = 1024
 FORMAT = paInt16
 RATE = 44100
 SERIAL_TIMEOUT_SECONDS = 1
+
+DEBUG = False
 
 
 class Transmitter(Thread):
@@ -125,7 +124,8 @@ class Transmitter(Thread):
                 serial_port.write(value)
                 serial_port.flush()
                 confirmation = serial_port.read()
-                # print(f"{port} in: {confirmation}")
+                if DEBUG:
+                    print(f"{port} in: {confirmation}")
                 if confirmation != value:
                     return False, port
             return True, port
@@ -171,7 +171,8 @@ class KeyboardCallbacks:
     @classmethod
     def on_press(cls, key: Key) -> bool:
         if cls.transmitter and not cls.key_states.get(key, False):
-            # print(key, "pressed")
+            if DEBUG:
+                print(key, "pressed")
             for i in range(10):
                 if key == KeyCode.from_char(str(i)):
                     cls.transmitter.channel = i
@@ -193,7 +194,8 @@ class KeyboardCallbacks:
     @classmethod
     def on_release(cls, key: Key) -> bool:
         if cls.transmitter and cls.key_states.get(key, True):
-            # print(key, "released")
+            if DEBUG:
+                print(key, "released")
             if key == Key.space:
                 cls.transmitter.stop_transmitting()
         cls.key_states[key] = False
