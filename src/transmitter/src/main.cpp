@@ -14,6 +14,7 @@ void transmitByte(byte byteToTransmit) {
   constexpr uint8_t firstBitPosition = 0;
   constexpr uint8_t lastBitPosition = 7;
 
+  // Transmit the byte bit by bit, back to front
   for(auto i = lastBitPosition; i >= firstBitPosition; i--) {
     digitalWrite(configs::transmitPin, (byteToTransmit >> i) & 1);
     delay(configs::pulseWidthMillis);

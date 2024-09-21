@@ -7,8 +7,10 @@ byte channels::transmitter = 9;
 
 void setup() {
   pinMode(configs::gateControlPin, OUTPUT);
-  digitalWrite(configs::gateControlPin, HIGH);
   pinMode(configs::channelTogglePin, INPUT);
+
+  digitalWrite(configs::gateControlPin, HIGH); // Audio gate is initially open
+
   attachInterrupt(
     digitalPinToInterrupt(configs::channelTogglePin),
     incrementChannel,
@@ -82,9 +84,11 @@ void readContinual(int delayMillis, uint64_t sampleSize) {
 
 
 void toggleAudio() {
-  digitalWrite(configs::gateControlPin, HIGH);
   if (channels::transmitter != channels::receiver && channels::transmitter > 0) {
-    digitalWrite(configs::gateControlPin, LOW);
+    digitalWrite(configs::gateControlPin, LOW); // Close the audio gate
+  }
+  else {
+    digitalWrite(configs::gateControlPin, HIGH); // Open the audio gate
   }
 }
 
