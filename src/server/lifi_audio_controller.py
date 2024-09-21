@@ -2,6 +2,7 @@
 
 from threading import Event, Thread
 from time import sleep, time
+from winsound import Beep
 
 from pyaudio import PyAudio, paInt16
 from pynput.keyboard import Key, KeyCode, Listener
@@ -43,6 +44,7 @@ class ChannelTransmitter(metaclass=Singleton):
         return self.__transmitter_ports
 
     def refresh_transmitters(self) -> None:
+        print("Refreshing transmitters...")
         start_time = time()
         self.__transmitter_ports = list(
             self.__transmission_client.mass_open().values()
@@ -219,8 +221,11 @@ class KeyboardCallbacks(metaclass=Singleton):
             if key == Key.esc:
                 return False
             elif key == Key.space:
-                self.__channel_transmitter.transmit_channel()
-                self.__audio_streamer.start_streaming()
+                if self.__channel_transmitter.transmit_channel():
+                    self.__audio_streamer.start_streaming()
+                else:
+                    for _ in range(3):
+                        Beep(1000, 100)
             elif key == KeyCode.from_char("r"):
                 self.__channel_transmitter.refresh_transmitters()
             elif key == KeyCode.from_char("p"):
