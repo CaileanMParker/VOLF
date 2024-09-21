@@ -11,8 +11,10 @@ from time import sleep
 
 from serial import Serial, SerialException, SerialTimeoutException  # type: ignore
 
-from configs import DEBUG
-from interfaces import AsyncMassClient
+from interface import AsyncMassClient
+
+
+DEBUG = False
 
 
 class MassSerialClient(AsyncMassClient):

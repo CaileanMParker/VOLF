@@ -21,10 +21,16 @@ from pyaudio import PyAudio, paInt16
 from pynput.keyboard import Key, KeyCode, Listener
 from serial import Serial  # type: ignore
 
-from configs import *  # pylint: disable=wildcard-import
-from interfaces import AsyncMassClient
-from mass_serial_client import MassSerialClient
+from asyncmassclients.interface import AsyncMassClient
+from asyncmassclients.mass_serial_client import MassSerialClient
 from singleton_type import Singleton
+
+
+BAUD = 9600  # Baud rate for serial communication
+SERIAL_TIMEOUT_SECONDS = 1 # Timeout for serial communication (read and write)
+TRANSMISSION_CHANNELS_UPPER_BOUND = 9 # Maximum number of transmission channels
+
+DEBUG = True
 
 
 class ChannelTransmitter(metaclass=Singleton):

@@ -1,4 +1,5 @@
-""" Interfaces for server classes
+""" Interface for a client that can communicate over multiple
+    ports asynchronously
 
 Exports
 -------
