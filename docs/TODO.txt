@@ -1,7 +1,7 @@
 1. Add display to receiver to show what channel it is set to and what channel is being broadcasted
 2. Experiment with ways to introduce resiliency to the channel transmission (generally seems to be a timing issue)
 3. Comment code
-4. Overhaul server code to keep serial connections open for transmitters (maybe closing on error and enforcing reenumarate?)
+4. DONE
 5. Create schematics
 6. Write README
 7. Add feature to receiver to release transmission channel after a certain period of silence
