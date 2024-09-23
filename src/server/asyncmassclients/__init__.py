@@ -15,3 +15,6 @@ Classes:
     MassSerialClient: A serial client that can communicate over multiple ports
         asynchronously
 """
+
+from .interface import IAsyncMassClient
+from .serial_mass_client import SerialMassClient

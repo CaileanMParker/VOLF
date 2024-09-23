@@ -9,15 +9,16 @@ MassSerialClient: A serial client that can communicate over multiple ports
 from multiprocessing.pool import AsyncResult, ThreadPool
 from time import sleep
 
-from serial import Serial, SerialException, SerialTimeoutException  # type: ignore
+from serial import Serial, SerialException, SerialTimeoutException  # type: ignore[import-untyped]
+from serial.tools.list_ports import comports  # type: ignore[import-untyped]
 
-from interface import AsyncMassClient
+from .interface import IAsyncMassClient
 
 
 DEBUG = False
 
 
-class MassSerialClient(AsyncMassClient):
+class SerialMassClient(IAsyncMassClient):
     """A serial client that can communicate over multiple ports asynchronously
 
     Attributes
@@ -108,7 +109,7 @@ class MassSerialClient(AsyncMassClient):
         # Make sure target ports are closed
         if not port_names:
             self.mass_close()
-            port_names = [f"COM{i + 1}" for i in range(256)]
+            port_names = [port.device for port in comports()]
         else:
             for port_name in port_names:
                 if port_name in self.__available_ports:

@@ -13,6 +13,7 @@ print_help: Print help text
 
 # pylint: disable=redefined-outer-name
 
+
 from threading import Event, Thread
 from time import sleep, time
 from winsound import Beep
@@ -21,8 +22,7 @@ from pyaudio import PyAudio, paInt16
 from pynput.keyboard import Key, KeyCode, Listener
 from serial import Serial  # type: ignore
 
-from asyncmassclients.interface import AsyncMassClient
-from asyncmassclients.mass_serial_client import MassSerialClient
+from asyncmassclients import IAsyncMassClient, SerialMassClient
 from singleton_type import Singleton
 
 
@@ -51,7 +51,7 @@ class ChannelTransmitter(metaclass=Singleton):
     def __init__(
         self,
         channels_upper_bound: int,
-        transmission_client: AsyncMassClient
+        transmission_client: IAsyncMassClient
     ) -> None:
         """Parameters
         ----------
@@ -60,7 +60,7 @@ class ChannelTransmitter(metaclass=Singleton):
         """
         self.__channel: int = 0
         self.__channels_upper_bound: int = channels_upper_bound
-        self.__transmission_client: AsyncMassClient = transmission_client
+        self.__transmission_client: IAsyncMassClient = transmission_client
         self.__transmitter_ports: list[Serial] = []
         self.refresh_transmitters()
 
@@ -380,7 +380,7 @@ if __name__ == "__main__":
     audio_streamer = AudioStreamer()
     channel_transmitter = ChannelTransmitter(
         TRANSMISSION_CHANNELS_UPPER_BOUND,
-        MassSerialClient(BAUD, SERIAL_TIMEOUT_SECONDS)
+        SerialMassClient(BAUD, SERIAL_TIMEOUT_SECONDS)
     )
     keyboard_callbacks = KeyboardCallbacks(audio_streamer, channel_transmitter)
     audio_streamer.start()

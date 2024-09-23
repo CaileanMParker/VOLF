@@ -12,7 +12,7 @@ from multiprocessing.pool import AsyncResult
 from typing import Any
 
 
-class AsyncMassClient(ABC):
+class IAsyncMassClient(ABC):
     """Interface for a client that can communicate over multiple ports
     asynchronously
 
