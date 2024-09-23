@@ -19,4 +19,4 @@ Instructions on using the MCU-enhanced circuit can be found in "docs/enhanced-ci
 - CaileanMParker
 - cervonij
 
-Special thanks to Mirko Pavleski for [his project on hackster.io](https://www.hackster.io/mircemk/transferring-data-using-a-led-and-solar-cell-ef8828), which gave us the designs for base circuits we worked off of!
+Special thanks to Mirko Pavleski for [his project on hackster.io](https://www.hackster.io/mircemk/transferring-data-using-a-led-and-solar-cell-ef8828), which gave us the designs for the base circuits we worked off of!
