@@ -100,10 +100,11 @@ class ChannelTransmitter(metaclass=Singleton):
         # Remove ports for which writing failed
         for result in write_results:
             port, async_results = result
-            if not async_results.get():
-                self.__transmitter_ports.remove(
-                    self.__transmission_client.get_port(port)  # type: ignore
-                )
+            if not async_results.get():  # TODO: add abstraction to close ports in base class if removed from implementation
+                port = self.__transmission_client.get_port(port)  # type: ignore
+                self.__transmitter_ports.remove(port)  # type: ignore
+                self.__transmission_client.close(port)
+
 
         # If no ports were successfully written to, return
         if not self.__transmitter_ports:
@@ -126,9 +127,9 @@ class ChannelTransmitter(metaclass=Singleton):
         for result in read_results:
             port, async_results = result
             if async_results.get() != echo_byte:
-                self.__transmitter_ports.remove(
-                    self.__transmission_client.get_port(port)  # type: ignore
-                )
+                port = self.__transmission_client.get_port(port)  # type: ignore
+                self.__transmitter_ports.remove(port)  # type: ignore
+                self.__transmission_client.close(port)
 
         if DEBUG:
             print(
@@ -180,9 +181,9 @@ class ChannelTransmitter(metaclass=Singleton):
         for result in results:
             port, async_results = result
             if async_results.get() != message:
-                self.__transmitter_ports.remove(
-                    self.__transmission_client.get_port(port)  # type: ignore
-                )
+                port = self.__transmission_client.get_port(port)  # type: ignore
+                self.__transmitter_ports.remove(port)  # type: ignore
+                self.__transmission_client.close(port)
                 print(
                     f"ERROR: Channel transmission failed on port {port}.",
                     "Please check connections and refresh ports.",

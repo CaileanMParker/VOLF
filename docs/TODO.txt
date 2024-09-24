@@ -10,3 +10,4 @@
 13. Adjust circuit component values to account for higher watt LEDs
 14. Fill out passive-circuit-guidance.txt
 15. Fill out enhanced-circuit-guidance.txt
+16. Add abstraction to server code channel controller to close ports in base class if removed from implementation
