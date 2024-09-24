@@ -11,7 +11,7 @@ namespace configs {
   inline constexpr byte preamble = 178; // 10110010
 
   /// @brief The duration of digital signal pulses in milliseconds
-  inline constexpr uint32_t pulseWidthMillis = 5;
+  inline constexpr unsigned long pulseWidthMillis = 5;
 
   /// @brief The pin on which the outgoing signals are transmitted
   inline constexpr uint8_t transmitPin = 13;

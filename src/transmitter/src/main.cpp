@@ -15,9 +15,13 @@ void transmitByte(byte byteToTransmit) {
   constexpr uint8_t lastBitPosition = 7;
 
   // Transmit the byte bit by bit, back to front
-  for(auto i = lastBitPosition; i >= firstBitPosition; i--) {
+  for(auto i = lastBitPosition; i > firstBitPosition; i--) {
     digitalWrite(configs::transmitPin, (byteToTransmit >> i) & 1);
     delay(configs::pulseWidthMillis);
+
+    // Serial.print(i);
+    // Serial.print(" ");
+    // Serial.println((byteToTransmit >> i) & 1);
   }
 }
 
@@ -25,7 +29,8 @@ void transmitByte(byte byteToTransmit) {
 void transmitChannel(byte channel) {
 #ifdef DEBUG
   Serial.print("Transmitting channel ");
-  Serial.println(channel);
+  Serial.write(channel);
+  Serial.println();
 #endif
 
   transmitByte(configs::preamble);

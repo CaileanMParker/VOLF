@@ -89,7 +89,7 @@ inline byte readBitIntoByte(byte receivedByte) {
 
 #ifdef VERBOSE_DEBUG
     char outString[7];
-    sprintf(outString, "%i %i %i", currentReading, previousBit, samplePreamble);
+    sprintf(outString, "%i %i %i", currentReading, previousBit, receivedByte);
     Serial.println(outString);
 #endif
 

@@ -20,7 +20,7 @@ void setup() {
 #if defined(DEBUG) || defined(READONLY) || defined(VERBOSE_DEBUG)
   Serial.begin(9600);
   Serial.print("Receiver initialized on channel: ");
-  Serial.println(receiverChannel);
+  Serial.println(channels::receiver);
 #endif
 }
 
@@ -58,7 +58,7 @@ void incrementChannel() {
 
 #ifdef DEBUG
   Serial.print("Receiver channel: ");
-  Serial.println(receiverChannel);
+  Serial.println(channels::receiver);
 #endif
 }
 
