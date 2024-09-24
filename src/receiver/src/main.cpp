@@ -38,7 +38,7 @@ byte getTransmissionChannel() {
   constexpr uint8_t lastBitPosition = 7;
 
   byte channel = 0;
-  for (auto i = firstBitPosition; i <= lastBitPosition; i++) {
+  for (int i = firstBitPosition; i <= lastBitPosition; i++) {
     channel = readBitIntoByte(channel);
   }
 
@@ -63,7 +63,7 @@ void incrementChannel() {
 }
 
 
-void readContinual(int delayMillis, uint64_t sampleSize) {
+void readContinual(uint32_t delayMillis, uint64_t sampleSize) {
   while (sampleSize == 1) {
     Serial.println(analogRead(configs::receivePin));
     delay(delayMillis);
@@ -71,11 +71,11 @@ void readContinual(int delayMillis, uint64_t sampleSize) {
 
   int readings[sampleSize];
   while (true) {
-    for (auto i = 0ULL; i < sampleSize; i++) {
+    for (uint64_t i = 0ULL; i < sampleSize; i++) {
       readings[i] = analogRead(configs::receivePin);
       delay(delayMillis);
     }
-    for (auto i = 0ULL; i < sampleSize; i++) {
+    for (uint64_t i = 0ULL; i < sampleSize; i++) {
       Serial.println(readings[i]);
     }
     Serial.println();

@@ -105,7 +105,7 @@ inline byte readBitIntoByte(byte receivedByte) {
  * @param sampleSize The number of samples to read before sending them over
  * serial
  */
-void readContinual(int delayMillis, long sampleSize);
+void readContinual(uint32_t delayMillis, uint64_t sampleSize);
 
 /**
  * @brief Toggle the audio gate control pin
