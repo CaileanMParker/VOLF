@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-// #define DEBUG
+#define DEBUG
 // #define VERBOSE_DEBUG
 // #define READONLY
 
@@ -10,10 +10,10 @@
 /// @brief Global channel values for the receiver
 namespace channels {
   /// @brief Channel on which the receiver will relay audio
-  extern byte receiver;
+  extern uint8_t receiver;
 
   /// @brief Channel on which incoming audio is being transmitted
-  extern byte transmitter;
+  extern uint8_t transmitter;
 }
 
 /// @brief Global configuration values for the receiver
@@ -35,7 +35,7 @@ namespace configs {
   /// @brief The duration of digital signal pulses in milliseconds
   inline constexpr uint32_t pulseWidthMillis = 5;
 
-  /// @brief The pin on which the incoming Lifi signal is sampled
+  /// @brief The pin on which the incoming LiFi signal is sampled
   inline constexpr uint8_t receivePin = A1;
 }
 
@@ -68,18 +68,19 @@ void incrementChannel();
  * @return The byte with the next bit shifted into it
  */
 inline byte readBitIntoByte(byte receivedByte) {
+  static uint16_t currentReading;
   static bool previousBit = 0;
   static uint16_t previousReading = 0;
 
   delay(configs::pulseWidthMillis);
-  static uint16_t currentReading = analogRead(configs::receivePin);
+  currentReading = analogRead(configs::receivePin);
   receivedByte <<= 1;
   if (
     (previousBit &&
-      (currentReading > (previousReading - configs::levelChangeThreshold))) //Signal stayed HIGH
+      (currentReading > (previousReading - configs::levelChangeThreshold))) // Signal stayed HIGH
     ||
     (!previousBit &&
-      (currentReading >= (previousReading + configs::levelChangeThreshold))) //Signal became HIGH
+      (currentReading >= (previousReading + configs::levelChangeThreshold))) // Signal became HIGH
   ) {
     receivedByte |= 1;
     previousBit = 1;

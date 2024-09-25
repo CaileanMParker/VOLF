@@ -1,8 +1,8 @@
 #include "receiver.h"
 
 
-byte channels::receiver = 1;
-byte channels::transmitter = 9;
+uint8_t channels::receiver = 1;
+uint8_t channels::transmitter = 9;
 
 
 void setup() {
@@ -69,7 +69,7 @@ void readContinual(uint32_t delayMillis, uint64_t sampleSize) {
     delay(delayMillis);
   }
 
-  int readings[sampleSize];
+  uint16_t readings[sampleSize];
   while (true) {
     for (uint64_t i = 0ULL; i < sampleSize; i++) {
       readings[i] = analogRead(configs::receivePin);
@@ -95,7 +95,7 @@ void toggleAudio() {
 
 void loop() {
 #ifdef READONLY
-  readContinual(configs::pulseWidthMillis, 1);
+  readContinual(configs::pulseWidthMillis, 1000);
 #endif
 
   awaitPreamble();

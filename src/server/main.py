@@ -83,6 +83,12 @@ class ChannelTransmitter(metaclass=Singleton):
         """A list of connected transmitters to send channels to"""
         return self.__transmitter_ports
 
+    def print_transmitters(self) -> None:
+        print(
+            "Transmitters on ports:",
+            [transmitter.port for transmitter in self.transmitters]
+        )
+
     def refresh_transmitters(self) -> None:
         """Refresh the list of connected transmitters"""
         print("Refreshing transmitters...")
@@ -143,10 +149,7 @@ class ChannelTransmitter(metaclass=Singleton):
                 sep="\n"
             )
             return
-        print(
-            "Transmitters on ports:",
-            [port.port for port in self.__transmitter_ports]
-        )
+        self.print_transmitters()
 
     def transmit_channel(self) -> bool:
         """Transmit the currently set channel to all connected transmitters
@@ -339,7 +342,7 @@ class KeyboardCallbacks(metaclass=Singleton):
             elif key == KeyCode.from_char("r"):  # Refresh ports
                 self.__channel_transmitter.refresh_transmitters()
             elif key == KeyCode.from_char("p"):  # Print ports
-                print("Serial ports:", self.__channel_transmitter.transmitters)
+                self.__channel_transmitter.print_transmitters()
             elif key == KeyCode.from_char("h"):  # Print help
                 print_help()
         self.__key_states[key] = True
