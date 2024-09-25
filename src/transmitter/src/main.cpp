@@ -21,7 +21,7 @@ void transmitByte(byte byteToTransmit) {
 
   // Transmit the byte bit by bit, back to front
   for(int8_t i = lastBitPosition; i >= firstBitPosition; i--) {
-    digitalWrite(configs::transmitPin, (byteToTransmit >> i) & 1);
+    digitalWrite(configs::transmitPin, (byteToTransmit >> i) & 0x01);
     delay(configs::pulseWidthMillis);
   }
 }
@@ -44,6 +44,7 @@ void loop() {
 
   byte inChar = Serial.read();
   if (isDigit(inChar)) transmitChannel(inChar - '0');
-  Serial.write(inChar);
+  byte outChar = inChar ^ '1';
+  Serial.write(outChar);
   Serial.flush();
 }

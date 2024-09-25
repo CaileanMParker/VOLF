@@ -11,3 +11,5 @@
 14. Fill out passive-circuit-guidance.txt
 15. Fill out enhanced-circuit-guidance.txt
 16. Add abstraction to server code channel controller to close ports in base class if removed from implementation
+17. Refactor channel transmitter class to be more general message transmitter and a more-scoped channel transmitter implementing it
+18. Make imports in modules non-exportable

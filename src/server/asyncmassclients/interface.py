@@ -53,7 +53,7 @@ class IAsyncMassClient(ABC):
         """
 
     @abstractmethod
-    def close(self, port: Any) -> None:
+    def close(self, port: str | Any) -> None:
         """Close a port
 
         Parameters
@@ -75,7 +75,7 @@ class IAsyncMassClient(ABC):
         """
 
     @abstractmethod
-    def mass_close(self, ports: list[Any] | None = None) -> None:
+    def mass_close(self, ports: list[str | Any] | None = None) -> None:
         """Close multiple ports
 
         Parameters

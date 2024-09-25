@@ -58,14 +58,17 @@ class SerialMassClient(IAsyncMassClient):
         """
         return self.__available_ports
 
-    def close(self, port: Serial) -> None:
+    def close(self, port: str | Serial) -> None:
         """Close a port
 
         Parameters
         ----------
         port: The serial port to close
         """
-        self.__available_ports.pop(port.port) # type: ignore
+        if isinstance(port, str):
+            port = self.__available_ports.pop(port)
+        else:
+            self.__available_ports.pop(port.port) # type: ignore
         port.close()
 
     def get_port(self, port_name: str) -> Serial | None:
@@ -81,7 +84,7 @@ class SerialMassClient(IAsyncMassClient):
         """
         return self.__available_ports.get(port_name)
 
-    def mass_close(self, ports: list[Serial] | None = None) -> None:
+    def mass_close(self, ports: list[str | Serial] | None = None) -> None:
         """Close multiple ports
 
         Parameters
@@ -130,7 +133,7 @@ class SerialMassClient(IAsyncMassClient):
 
         # Collect available ports
         for result in async_results:
-            port = result.get()
+            port: Serial = result.get()
             if port:
                 self.__available_ports[port.port] = port  # type: ignore
         return self.__available_ports
