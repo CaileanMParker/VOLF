@@ -16,7 +16,7 @@ from asyncmassclients import IAsyncMassClient
 from singleton_type import Singleton
 
 
-_DEBUG = True
+_DEBUG = False
 
 
 class ChannelTransmitter(metaclass=Singleton):
