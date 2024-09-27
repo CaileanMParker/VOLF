@@ -19,10 +19,10 @@ namespace channels {
 /// @brief Global configuration values for the receiver
 namespace configs {
   /// @brief The pin to which the channel toggle switch is connected
-  inline constexpr uint8_t channelTogglePin = 2;
+  inline constexpr uint8_t channelTogglePin = 3;
 
   /// @brief The pin to which the audio gate control is connected
-  inline constexpr uint8_t gateControlPin = 13;
+  inline constexpr uint8_t gateControlPin = 2;
 
   /// @brief The threshold at which a change in "digital" signal level is
   /// detected

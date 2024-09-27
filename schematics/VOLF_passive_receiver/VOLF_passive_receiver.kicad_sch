@@ -827,26 +827,36 @@
 		)
 	)
 	(junction
-		(at 109.22 53.34)
+		(at 109.22 60.96)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "504a8eca-58d1-485b-a172-07fe2fe160ac")
+		(uuid "3656eb26-2af2-4f0d-9f26-93f6bf2745b9")
 	)
 	(junction
-		(at 101.6 73.66)
+		(at 101.6 76.2)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "90f050b9-2639-4097-88d6-52505b3f172d")
+		(uuid "5086fe95-566f-4d34-b6d8-3811dd3181c2")
 	)
 	(junction
-		(at 101.6 53.34)
+		(at 101.6 60.96)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "99ca0f1a-3968-42d2-9947-a5ee0a351f26")
+		(uuid "d3bb0dbe-c99d-48f3-803f-d63da178d17f")
 	)
 	(wire
 		(pts
-			(xy 88.9 53.34) (xy 83.82 53.34)
+			(xy 101.6 60.96) (xy 109.22 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "04a4f209-8a7c-497d-9ae4-2acff7ac64a3")
+	)
+	(wire
+		(pts
+			(xy 91.44 60.96) (xy 88.9 60.96)
 		)
 		(stroke
 			(width 0)
@@ -856,27 +866,37 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 53.34) (xy 101.6 59.69)
+			(xy 109.22 60.96) (xy 109.22 63.5)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "1195e208-777d-45b2-8add-c6697b09bf30")
+		(uuid "13e58119-6d60-44e9-bda3-8a68f7cae420")
 	)
 	(wire
 		(pts
-			(xy 109.22 53.34) (xy 109.22 55.88)
+			(xy 101.6 60.96) (xy 101.6 64.77)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "20be6d08-0547-41df-9cdc-aa29fbae8d4a")
+		(uuid "165aec0a-de53-44cf-a726-4395da41123d")
 	)
 	(wire
 		(pts
-			(xy 114.3 55.88) (xy 109.22 55.88)
+			(xy 109.22 60.96) (xy 111.76 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "16faf088-9213-4f0f-a3cb-6573904321ca")
+	)
+	(wire
+		(pts
+			(xy 111.76 63.5) (xy 109.22 63.5)
 		)
 		(stroke
 			(width 0)
@@ -886,27 +906,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 73.66) (xy 109.22 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "56830d5e-daa6-4525-b328-6934fc66b048")
-	)
-	(wire
-		(pts
-			(xy 101.6 53.34) (xy 109.22 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "78b789da-613e-49de-abb2-e3270363084b")
-	)
-	(wire
-		(pts
-			(xy 109.22 58.42) (xy 109.22 73.66)
+			(xy 109.22 66.04) (xy 109.22 76.2)
 		)
 		(stroke
 			(width 0)
@@ -916,7 +916,7 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 73.66) (xy 101.6 73.66)
+			(xy 88.9 76.2) (xy 101.6 76.2)
 		)
 		(stroke
 			(width 0)
@@ -926,7 +926,7 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 68.58) (xy 83.82 73.66)
+			(xy 88.9 73.66) (xy 88.9 76.2)
 		)
 		(stroke
 			(width 0)
@@ -936,7 +936,7 @@
 	)
 	(wire
 		(pts
-			(xy 96.52 53.34) (xy 101.6 53.34)
+			(xy 99.06 60.96) (xy 101.6 60.96)
 		)
 		(stroke
 			(width 0)
@@ -946,7 +946,17 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 73.66) (xy 101.6 67.31)
+			(xy 101.6 76.2) (xy 109.22 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c6729fbe-40d5-4b60-ba29-4478b4a62eff")
+	)
+	(wire
+		(pts
+			(xy 101.6 76.2) (xy 101.6 72.39)
 		)
 		(stroke
 			(width 0)
@@ -956,7 +966,7 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 58.42) (xy 109.22 58.42)
+			(xy 111.76 66.04) (xy 109.22 66.04)
 		)
 		(stroke
 			(width 0)
@@ -966,7 +976,7 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 53.34) (xy 83.82 58.42)
+			(xy 88.9 60.96) (xy 88.9 63.5)
 		)
 		(stroke
 			(width 0)
@@ -974,19 +984,9 @@
 		)
 		(uuid "d1d6b91f-d5bb-4dd1-821c-804826ed1f9c")
 	)
-	(wire
-		(pts
-			(xy 109.22 53.34) (xy 114.3 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f76673fd-4b93-467c-b88c-4c3f4f9bbbd6")
-	)
 	(symbol
 		(lib_id "Connector_Audio:AudioJack3")
-		(at 119.38 55.88 180)
+		(at 116.84 63.5 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -995,7 +995,7 @@
 		(fields_autoplaced yes)
 		(uuid "5e00ec23-35c0-40f8-85c1-ee0bf6194448")
 		(property "Reference" "J1"
-			(at 121.285 64.77 0)
+			(at 118.745 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1003,7 +1003,7 @@
 			)
 		)
 		(property "Value" "AudioJack3"
-			(at 121.285 62.23 0)
+			(at 118.745 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1011,7 +1011,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 119.38 55.88 0)
+			(at 116.84 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1020,7 +1020,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 119.38 55.88 0)
+			(at 116.84 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1029,7 +1029,7 @@
 			)
 		)
 		(property "Description" "Audio Jack, 3 Poles (Stereo / TRS)"
-			(at 119.38 55.88 0)
+			(at 116.84 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1057,7 +1057,7 @@
 	)
 	(symbol
 		(lib_id "Device:Solar_Cells")
-		(at 83.82 63.5 0)
+		(at 88.9 68.58 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1066,7 +1066,7 @@
 		(fields_autoplaced yes)
 		(uuid "621ba52e-9fee-4bd8-a1f0-a46c8347bc85")
 		(property "Reference" "SC1"
-			(at 87.63 61.5949 0)
+			(at 92.71 66.6749 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1075,7 +1075,7 @@
 			)
 		)
 		(property "Value" "5v"
-			(at 87.63 64.1349 0)
+			(at 92.71 69.2149 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1084,7 +1084,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 83.82 61.976 90)
+			(at 88.9 67.056 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1093,7 +1093,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 83.82 61.976 90)
+			(at 88.9 67.056 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1102,7 +1102,7 @@
 			)
 		)
 		(property "Description" "Multiple solar cells"
-			(at 83.82 63.5 0)
+			(at 88.9 68.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1127,7 +1127,7 @@
 	)
 	(symbol
 		(lib_id "Device:R_Variable_US")
-		(at 101.6 63.5 0)
+		(at 101.6 68.58 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1136,7 +1136,7 @@
 		(fields_autoplaced yes)
 		(uuid "92cab85f-da21-4dfc-8a81-9d49fa5fa0d9")
 		(property "Reference" "R1"
-			(at 105.41 62.1918 0)
+			(at 105.41 67.2718 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1145,7 +1145,7 @@
 			)
 		)
 		(property "Value" "2k"
-			(at 105.41 64.7318 0)
+			(at 105.41 69.8118 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1154,7 +1154,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 99.822 63.5 90)
+			(at 99.822 68.58 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1163,7 +1163,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 101.6 63.5 0)
+			(at 101.6 68.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1172,7 +1172,7 @@
 			)
 		)
 		(property "Description" "Variable resistor, US symbol"
-			(at 101.6 63.5 0)
+			(at 101.6 68.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1197,7 +1197,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Polarized_US")
-		(at 92.71 53.34 90)
+		(at 95.25 60.96 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1206,7 +1206,7 @@
 		(fields_autoplaced yes)
 		(uuid "b83deba2-5f92-4e04-8dfa-f85e2b4f8f48")
 		(property "Reference" "C1"
-			(at 92.075 45.72 90)
+			(at 94.615 53.34 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1214,7 +1214,7 @@
 			)
 		)
 		(property "Value" "470u"
-			(at 92.075 48.26 90)
+			(at 94.615 55.88 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1222,7 +1222,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 92.71 53.34 0)
+			(at 95.25 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1231,7 +1231,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 92.71 53.34 0)
+			(at 95.25 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1240,7 +1240,7 @@
 			)
 		)
 		(property "Description" "Polarized capacitor, US symbol"
-			(at 92.71 53.34 0)
+			(at 95.25 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)

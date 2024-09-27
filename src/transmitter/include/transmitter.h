@@ -14,7 +14,7 @@ namespace configs {
   inline constexpr unsigned long pulseWidthMillis = 5;
 
   /// @brief The pin on which the outgoing signals are transmitted
-  inline constexpr uint8_t transmitPin = 13;
+  inline constexpr uint8_t transmitPin = 2;
 }
 
 /**

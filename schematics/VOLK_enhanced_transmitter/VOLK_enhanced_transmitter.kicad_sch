@@ -2,15 +2,134 @@
 	(version 20231120)
 	(generator "eeschema")
 	(generator_version "8.0")
-	(uuid "69e11152-5d95-498f-8689-d1aacdb4a1a0")
+	(uuid "18397c79-8016-4b55-8616-aabd5bfb4047")
 	(paper "A5")
 	(title_block
-		(title "VOLF Passive Transmitter")
+		(title "VOLF Enhanced Transmitter")
 		(date "2024-09-26")
 		(rev "1.0")
 		(comment 1 "This schematic depicts a \"demo\" board with a 10W LED and 9V power supply")
 	)
 	(lib_symbols
+		(symbol "Connector:Conn_01x01_Pin"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x01_Pin"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x01, script generated"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x01_Pin_1_1"
+				(polyline
+					(pts
+						(xy 1.27 0) (xy 0.8636 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 0.8636 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Connector_Audio:AudioJack3"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -1388,32 +1507,38 @@
 		)
 	)
 	(junction
-		(at 101.6 78.74)
+		(at 102.87 78.74)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3536b050-0954-4553-a4ae-b547b3a62078")
 	)
 	(junction
-		(at 91.44 63.5)
+		(at 92.71 63.5)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "85928ac6-682f-4cf9-8981-fe2168d9f71d")
 	)
 	(junction
-		(at 124.46 55.88)
+		(at 125.73 55.88)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b0cbdc84-d8ee-43ed-8b06-72d4dd54f5a6")
 	)
 	(junction
-		(at 101.6 63.5)
+		(at 102.87 63.5)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ba4cbe28-0f35-4bd6-9450-6f4a58223490")
 	)
+	(junction
+		(at 113.03 78.74)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e4f196a6-b31a-4752-9b72-008e1b4548ea")
+	)
 	(wire
 		(pts
-			(xy 124.46 48.26) (xy 124.46 55.88)
+			(xy 125.73 48.26) (xy 125.73 55.88)
 		)
 		(stroke
 			(width 0)
@@ -1423,7 +1548,7 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 63.5) (xy 93.98 63.5)
+			(xy 92.71 63.5) (xy 95.25 63.5)
 		)
 		(stroke
 			(width 0)
@@ -1433,7 +1558,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 63.5) (xy 101.6 66.04)
+			(xy 102.87 63.5) (xy 102.87 66.04)
 		)
 		(stroke
 			(width 0)
@@ -1443,7 +1568,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 50.8) (xy 101.6 48.26)
+			(xy 102.87 50.8) (xy 102.87 48.26)
 		)
 		(stroke
 			(width 0)
@@ -1453,7 +1578,17 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 63.5) (xy 91.44 63.5)
+			(xy 92.71 55.88) (xy 92.71 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "37beb816-60f6-400d-b118-9205f7ec0207")
+	)
+	(wire
+		(pts
+			(xy 90.17 63.5) (xy 92.71 63.5)
 		)
 		(stroke
 			(width 0)
@@ -1463,7 +1598,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 78.74) (xy 101.6 73.66)
+			(xy 102.87 78.74) (xy 102.87 73.66)
 		)
 		(stroke
 			(width 0)
@@ -1473,7 +1608,7 @@
 	)
 	(wire
 		(pts
-			(xy 96.52 68.58) (xy 96.52 78.74)
+			(xy 97.79 68.58) (xy 97.79 78.74)
 		)
 		(stroke
 			(width 0)
@@ -1483,7 +1618,7 @@
 	)
 	(wire
 		(pts
-			(xy 111.76 55.88) (xy 114.3 55.88)
+			(xy 113.03 55.88) (xy 115.57 55.88)
 		)
 		(stroke
 			(width 0)
@@ -1493,7 +1628,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 48.26) (xy 104.14 48.26)
+			(xy 102.87 48.26) (xy 105.41 48.26)
 		)
 		(stroke
 			(width 0)
@@ -1503,7 +1638,7 @@
 	)
 	(wire
 		(pts
-			(xy 124.46 55.88) (xy 121.92 55.88)
+			(xy 125.73 55.88) (xy 123.19 55.88)
 		)
 		(stroke
 			(width 0)
@@ -1513,7 +1648,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 78.74) (xy 111.76 78.74)
+			(xy 102.87 78.74) (xy 113.03 78.74)
 		)
 		(stroke
 			(width 0)
@@ -1523,7 +1658,7 @@
 	)
 	(wire
 		(pts
-			(xy 99.06 63.5) (xy 101.6 63.5)
+			(xy 100.33 63.5) (xy 102.87 63.5)
 		)
 		(stroke
 			(width 0)
@@ -1533,7 +1668,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 63.5) (xy 104.14 63.5)
+			(xy 102.87 63.5) (xy 105.41 63.5)
 		)
 		(stroke
 			(width 0)
@@ -1543,7 +1678,7 @@
 	)
 	(wire
 		(pts
-			(xy 96.52 78.74) (xy 101.6 78.74)
+			(xy 97.79 78.74) (xy 102.87 78.74)
 		)
 		(stroke
 			(width 0)
@@ -1553,7 +1688,7 @@
 	)
 	(wire
 		(pts
-			(xy 124.46 48.26) (xy 111.76 48.26)
+			(xy 125.73 48.26) (xy 113.03 48.26)
 		)
 		(stroke
 			(width 0)
@@ -1563,7 +1698,7 @@
 	)
 	(wire
 		(pts
-			(xy 111.76 68.58) (xy 111.76 78.74)
+			(xy 113.03 68.58) (xy 113.03 78.74)
 		)
 		(stroke
 			(width 0)
@@ -1573,7 +1708,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 58.42) (xy 101.6 63.5)
+			(xy 102.87 58.42) (xy 102.87 63.5)
 		)
 		(stroke
 			(width 0)
@@ -1583,7 +1718,7 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 68.58) (xy 96.52 68.58)
+			(xy 90.17 68.58) (xy 97.79 68.58)
 		)
 		(stroke
 			(width 0)
@@ -1593,7 +1728,7 @@
 	)
 	(wire
 		(pts
-			(xy 111.76 55.88) (xy 111.76 58.42)
+			(xy 113.03 55.88) (xy 113.03 58.42)
 		)
 		(stroke
 			(width 0)
@@ -1603,7 +1738,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 55.88) (xy 124.46 55.88)
+			(xy 128.27 55.88) (xy 125.73 55.88)
 		)
 		(stroke
 			(width 0)
@@ -1613,7 +1748,17 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 63.5) (xy 91.44 66.04)
+			(xy 113.03 78.74) (xy 115.57 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e3444567-e8f4-4841-a7d3-ee82d38fd547")
+	)
+	(wire
+		(pts
+			(xy 92.71 63.5) (xy 92.71 66.04)
 		)
 		(stroke
 			(width 0)
@@ -1623,7 +1768,7 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 66.04) (xy 88.9 66.04)
+			(xy 92.71 66.04) (xy 90.17 66.04)
 		)
 		(stroke
 			(width 0)
@@ -1633,7 +1778,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 81.28) (xy 101.6 78.74)
+			(xy 102.87 81.28) (xy 102.87 78.74)
 		)
 		(stroke
 			(width 0)
@@ -1642,34 +1787,35 @@
 		(uuid "feedf064-e401-4015-9544-2d74c9a294d0")
 	)
 	(symbol
-		(lib_id "Connector_Audio:AudioJack3")
-		(at 83.82 66.04 0)
-		(mirror x)
+		(lib_id "Device:R_US")
+		(at 102.87 54.61 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "0046da9b-61bf-47db-a934-fb14956ccbbd")
-		(property "Reference" "J1"
-			(at 81.915 74.93 0)
+		(uuid "13828698-1a41-45bb-ab9a-de8f0862b0cb")
+		(property "Reference" "R?"
+			(at 105.41 53.3399 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Value" "AudioJack3"
-			(at 81.915 72.39 0)
+		(property "Value" "4.7k"
+			(at 105.41 55.8799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
-			(at 83.82 66.04 0)
+			(at 103.886 54.864 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1678,7 +1824,159 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 83.82 66.04 0)
+			(at 102.87 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, US symbol"
+			(at 102.87 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "7c3aa9c4-0ef7-4ceb-894b-a08931c151ca")
+		)
+		(pin "1"
+			(uuid "9bd6c419-b07f-4abc-b6aa-e2619018a341")
+		)
+		(instances
+			(project "VOLK_enhanced_transmitter"
+				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/69e11152-5d95-498f-8689-d1aacdb4a1a0"
+					(reference "R1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Polarized_Small_US")
+		(at 97.79 63.5 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "82ea3c7e-040f-40dc-a06f-7994bdda4308")
+		(property "Reference" "C?"
+			(at 96.0881 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100u"
+			(at 98.6281 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 97.79 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 97.79 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Polarized capacitor, small US symbol"
+			(at 97.79 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "922afb04-52a4-46f8-8049-e4e82bed4571")
+		)
+		(pin "1"
+			(uuid "d974d59c-011e-488a-9b91-70157f4ce049")
+		)
+		(instances
+			(project "VOLK_enhanced_transmitter"
+				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/69e11152-5d95-498f-8689-d1aacdb4a1a0"
+					(reference "C1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Audio:AudioJack3")
+		(at 85.09 66.04 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8ca6cc61-2d5f-4799-b3f5-183184afdc5b")
+		(property "Reference" "J?"
+			(at 83.185 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AudioJack3"
+			(at 83.185 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 85.09 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 85.09 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1687,7 +1985,7 @@
 			)
 		)
 		(property "Description" "Audio Jack, 3 Poles (Stereo / TRS)"
-			(at 83.82 66.04 0)
+			(at 85.09 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1705,6 +2003,12 @@
 			(uuid "e3600166-4d08-4323-bf78-58b81e6f1fb3")
 		)
 		(instances
+			(project "VOLK_enhanced_transmitter"
+				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
+					(reference "J?")
+					(unit 1)
+				)
+			)
 			(project ""
 				(path "/69e11152-5d95-498f-8689-d1aacdb4a1a0"
 					(reference "J1")
@@ -1714,25 +2018,26 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:LED")
-		(at 118.11 55.88 0)
+		(lib_id "power:GND")
+		(at 102.87 81.28 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "12501175-751d-4755-861e-c946ae7a0521")
-		(property "Reference" "D1"
-			(at 116.5225 49.53 0)
+		(uuid "9165ae57-80f6-448b-85ec-cd9a1bddeb2c")
+		(property "Reference" "#PWR?"
+			(at 102.87 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
-		(property "Value" "10W LED"
-			(at 116.5225 52.07 0)
+		(property "Value" "GND"
+			(at 102.87 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1740,146 +2045,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 118.11 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 118.11 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Light emitting diode"
-			(at 118.11 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "ceaeaa0a-bcc8-414e-a7cf-df80518c9b7b")
-		)
-		(pin "2"
-			(uuid "4a24e849-eb27-4caf-9331-0f9fe88fdcfc")
-		)
-		(instances
-			(project ""
-				(path "/69e11152-5d95-498f-8689-d1aacdb4a1a0"
-					(reference "D1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_US")
-		(at 101.6 54.61 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "13828698-1a41-45bb-ab9a-de8f0862b0cb")
-		(property "Reference" "R1"
-			(at 104.14 53.3399 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "4.7k"
-			(at 104.14 55.8799 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 102.616 54.864 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 101.6 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, US symbol"
-			(at 101.6 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "7c3aa9c4-0ef7-4ceb-894b-a08931c151ca")
-		)
-		(pin "1"
-			(uuid "9bd6c419-b07f-4abc-b6aa-e2619018a341")
-		)
-		(instances
-			(project ""
-				(path "/69e11152-5d95-498f-8689-d1aacdb4a1a0"
-					(reference "R1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+9V")
-		(at 127 55.88 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "3a1aafd4-320f-44cf-ba1f-2b0afd66943b")
-		(property "Reference" "#PWR01"
-			(at 123.19 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+9V"
-			(at 132.08 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 127 55.88 0)
+			(at 102.87 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1888,7 +2054,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 127 55.88 0)
+			(at 102.87 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1896,8 +2062,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+9V\""
-			(at 127 55.88 0)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 102.87 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1906,12 +2072,18 @@
 			)
 		)
 		(pin "1"
-			(uuid "112e62df-68e6-43f4-869e-195b50377fee")
+			(uuid "d5f0f71b-0739-4a42-806f-757fc660b25c")
 		)
 		(instances
+			(project "VOLK_enhanced_transmitter"
+				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project ""
 				(path "/69e11152-5d95-498f-8689-d1aacdb4a1a0"
-					(reference "#PWR01")
+					(reference "#PWR02")
 					(unit 1)
 				)
 			)
@@ -1919,16 +2091,16 @@
 	)
 	(symbol
 		(lib_id "Device:R_US")
-		(at 101.6 69.85 0)
+		(at 102.87 69.85 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "6871fb9e-2154-40f8-be4f-e7a514240f18")
-		(property "Reference" "R2"
-			(at 104.14 68.5799 0)
+		(uuid "a5c7d126-daf4-4841-9121-3fd9596a5908")
+		(property "Reference" "R?"
+			(at 105.41 68.5799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1937,7 +2109,7 @@
 			)
 		)
 		(property "Value" "4.7k"
-			(at 104.14 71.1199 0)
+			(at 105.41 71.1199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1946,7 +2118,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 102.616 70.104 90)
+			(at 103.886 70.104 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1955,7 +2127,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 101.6 69.85 0)
+			(at 102.87 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1964,7 +2136,7 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
-			(at 101.6 69.85 0)
+			(at 102.87 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1979,6 +2151,12 @@
 			(uuid "5a103270-c12b-4281-b3fa-7fb911375d5d")
 		)
 		(instances
+			(project "VOLK_enhanced_transmitter"
+				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
+					(reference "R?")
+					(unit 1)
+				)
+			)
 			(project ""
 				(path "/69e11152-5d95-498f-8689-d1aacdb4a1a0"
 					(reference "R2")
@@ -1988,224 +2166,17 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 101.6 81.28 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "74952d27-9e34-47ff-b87e-c825987335be")
-		(property "Reference" "#PWR02"
-			(at 101.6 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 101.6 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 101.6 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 101.6 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 101.6 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "d5f0f71b-0739-4a42-806f-757fc660b25c")
-		)
-		(instances
-			(project ""
-				(path "/69e11152-5d95-498f-8689-d1aacdb4a1a0"
-					(reference "#PWR02")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C_Polarized_Small_US")
-		(at 96.52 63.5 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "82ea3c7e-040f-40dc-a06f-7994bdda4308")
-		(property "Reference" "C1"
-			(at 94.8181 60.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100u"
-			(at 97.3581 60.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 96.52 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 96.52 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Polarized capacitor, small US symbol"
-			(at 96.52 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "922afb04-52a4-46f8-8049-e4e82bed4571")
-		)
-		(pin "1"
-			(uuid "d974d59c-011e-488a-9b91-70157f4ce049")
-		)
-		(instances
-			(project ""
-				(path "/69e11152-5d95-498f-8689-d1aacdb4a1a0"
-					(reference "C1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_Variable_US")
-		(at 107.95 48.26 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "c228958d-b03b-4e28-832f-330a830e7b6b")
-		(property "Reference" "R3"
-			(at 106.6418 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100k"
-			(at 109.1818 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 107.95 50.038 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 107.95 48.26 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Variable resistor, US symbol"
-			(at 107.95 48.26 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "64d5c639-eab3-4383-b5f6-d737d8d9dbba")
-		)
-		(pin "2"
-			(uuid "3564ad54-2d91-41d7-a402-48ea08b91ab9")
-		)
-		(instances
-			(project ""
-				(path "/69e11152-5d95-498f-8689-d1aacdb4a1a0"
-					(reference "R3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Transistor_FET:IRF3205")
-		(at 109.22 63.5 0)
+		(at 110.49 63.5 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "f6599435-b898-4697-8f1f-579fe808ca28")
-		(property "Reference" "Q1"
-			(at 115.57 62.2299 0)
+		(uuid "a7395176-85fe-4074-aecc-ae864eedb22e")
+		(property "Reference" "Q?"
+			(at 116.84 62.2299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2214,7 +2185,7 @@
 			)
 		)
 		(property "Value" "IRF3205"
-			(at 115.57 64.7699 0)
+			(at 116.84 64.7699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2223,7 +2194,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
-			(at 114.3 65.405 0)
+			(at 115.57 65.405 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2234,7 +2205,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.irf.com/product-info/datasheets/data/irf3205.pdf"
-			(at 114.3 67.31 0)
+			(at 115.57 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2244,7 +2215,7 @@
 			)
 		)
 		(property "Description" "110A Id, 55V Vds, Single N-Channel HEXFET Power MOSFET, 8mOhm Ron, TO-220AB"
-			(at 109.22 63.5 0)
+			(at 110.49 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2262,9 +2233,368 @@
 			(uuid "33fdfb31-9298-4f9d-a43b-a0540dec0387")
 		)
 		(instances
+			(project "VOLK_enhanced_transmitter"
+				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
+					(reference "Q?")
+					(unit 1)
+				)
+			)
 			(project ""
 				(path "/69e11152-5d95-498f-8689-d1aacdb4a1a0"
 					(reference "Q1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+9V")
+		(at 128.27 55.88 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bdad2e5b-7042-4448-ad03-b9aa8664bd07")
+		(property "Reference" "#PWR?"
+			(at 124.46 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+9V"
+			(at 133.35 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 128.27 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 128.27 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+9V\""
+			(at 128.27 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "112e62df-68e6-43f4-869e-195b50377fee")
+		)
+		(instances
+			(project "VOLK_enhanced_transmitter"
+				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/69e11152-5d95-498f-8689-d1aacdb4a1a0"
+					(reference "#PWR01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Variable_US")
+		(at 109.22 48.26 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c228958d-b03b-4e28-832f-330a830e7b6b")
+		(property "Reference" "R?"
+			(at 107.9118 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100k"
+			(at 110.4518 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 109.22 50.038 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 109.22 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Variable resistor, US symbol"
+			(at 109.22 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "64d5c639-eab3-4383-b5f6-d737d8d9dbba")
+		)
+		(pin "2"
+			(uuid "3564ad54-2d91-41d7-a402-48ea08b91ab9")
+		)
+		(instances
+			(project "VOLK_enhanced_transmitter"
+				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
+					(reference "R?")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/69e11152-5d95-498f-8689-d1aacdb4a1a0"
+					(reference "R3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x01_Pin")
+		(at 92.71 50.8 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "dd61be5b-110f-450f-a1b0-9b3316f097b3")
+		(property "Reference" "J2"
+			(at 97.79 51.435 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "MCU DP2"
+			(at 95.25 51.435 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 92.71 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 92.71 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated"
+			(at 92.71 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c1b7c12d-e7ae-4c72-b995-744c9a081f7f")
+		)
+		(instances
+			(project ""
+				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
+					(reference "J2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 119.38 55.88 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e09c1639-9bb4-482c-84bb-33848e14a14a")
+		(property "Reference" "D?"
+			(at 117.7925 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10W LED"
+			(at 117.7925 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 119.38 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 119.38 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 119.38 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ceaeaa0a-bcc8-414e-a7cf-df80518c9b7b")
+		)
+		(pin "2"
+			(uuid "4a24e849-eb27-4caf-9331-0f9fe88fdcfc")
+		)
+		(instances
+			(project "VOLK_enhanced_transmitter"
+				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
+					(reference "D?")
+					(unit 1)
+				)
+			)
+			(project ""
+				(path "/69e11152-5d95-498f-8689-d1aacdb4a1a0"
+					(reference "D1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x01_Pin")
+		(at 120.65 78.74 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f020c726-f546-4ee9-8680-5e05b204a7ce")
+		(property "Reference" "J3"
+			(at 120.015 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "MCU GND"
+			(at 120.015 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 120.65 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 120.65 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated"
+			(at 120.65 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "21883ae7-24a4-49d7-9d75-4013917704da")
+		)
+		(instances
+			(project ""
+				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
+					(reference "J3")
 					(unit 1)
 				)
 			)
