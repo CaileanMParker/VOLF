@@ -33,24 +33,31 @@ class IAsyncMassClient(ABC):
     write: Write to a port
     """
 
-    @abstractmethod
     def __init__(
         self,
-        buad: int,
-        timeout_seconds: int,
+        template: Any | None = None
     ) -> None:
         """Parameters
         ----------
-        baud: The bitrate for communications from the client
-        timeout_seconds: The timeout for client connections in seconds (read &
-            write)
+        template (Optional): A template client whose parameters will be used
+            for creating all new clients
         """
 
     @property
     @abstractmethod
     def ports(self) -> dict[str, Any]:
-        """A dictionary of available ports mapping port names to port objects
+        """A dictionary of available ports mapping port names to port objects"""
+
+    @property
+    @abstractmethod
+    def template(self) -> Any:
+        """The template client whose parameters will be used for creating all
+            new clients
         """
+
+    @template.setter
+    @abstractmethod
+    def template(self, template: Any | None) -> None: ...
 
     @abstractmethod
     def close(self, port: str | Any) -> None:

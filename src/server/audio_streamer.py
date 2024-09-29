@@ -31,9 +31,11 @@ class AudioStreamer(Thread):
 
     def __init__(
         self,
-        audio_channels = 2,
-        chunk_size = 1024,
-        sample_rate = 44100
+        audio_channels: int = 2,
+        chunk_size: int = 1024,
+        sample_rate: int = 44100,
+        input_device_name: str | None = None,
+        output_device_name: str | None = None
     ) -> None:
         """Parameters
         ----------
@@ -47,18 +49,28 @@ class AudioStreamer(Thread):
         self.__audio_channels = audio_channels
         self.__chunk_size = chunk_size
         self.__sample_rate = sample_rate
+        input_device_index = None
+        output_device_index = None
+        if input_device_name:
+            input_device_index = self.__get_device_index(input_device_name)
+        if output_device_name:
+            output_device_index = self.__get_device_index(
+                output_device_name, True
+            )
         self.__stream_in = self.__audio.open(
-            format=paInt16,
             channels=self.__audio_channels,
+            format=paInt16,
+            frames_per_buffer=self.__chunk_size,
             rate=self.__sample_rate,
             input=True,
-            frames_per_buffer=self.__chunk_size
+            input_device_index=input_device_index
         )
         self.__stream_out = self.__audio.open(
-            format=paInt16,
             channels=self.__audio_channels,
+            format=paInt16,
             rate=self.__sample_rate,
-            output = True
+            output = True,
+            output_device_index=output_device_index
         )
         self.__kill_flag = Event()
         self.__transmit_flag = Event()
@@ -67,6 +79,37 @@ class AudioStreamer(Thread):
     def streaming(self) -> bool:
         """Whether the audio is currently being streamed"""
         return self.__transmit_flag.is_set()
+
+    def __get_device_index(self, device_name: str, output: bool = False) -> int:
+        """Get the index of an audio device by name
+
+        Parameters
+        ----------
+        device_name: The name of the audio device to find
+        output (Optional): Whether the device is an output device
+
+        Returns
+        -------
+        The index of the audio device
+
+        Raises
+        ------
+        ValueError: If the device is not found
+        RuntimeError: If the device is not of the specified type
+        """
+        for i in range(0, self.__audio.get_device_count()):
+            device_info = self.__audio.get_device_info_by_index(i)
+            if (device_name in device_info["name"]):  # type: ignore
+                if output and not device_info.get("maxOutputChannels"):
+                    raise RuntimeError(
+                        f"Device '{device_name}' is not an output device"
+                    )
+                if output and device_info.get("maxInputChannels"):
+                    raise RuntimeError(
+                        f"Device '{device_name}' is not an input device"
+                    )
+                return i
+        raise ValueError(f"Device '{device_name}' not found")
 
     def __stream_audio(self) -> None:
         """Stream audio from the microphone to the transmitter"""

@@ -6,16 +6,14 @@ MassSerialClient: A serial client that can communicate over multiple ports
     asynchronously
 """
 
+from inspect import signature
 from multiprocessing.pool import AsyncResult, ThreadPool
 from time import sleep
 
-from serial import Serial, SerialException, SerialTimeoutException  # type: ignore[import-untyped]
+from serial import Serial, SerialBase, SerialException, SerialTimeoutException  # type: ignore[import-untyped]
 from serial.tools.list_ports import comports  # type: ignore[import-untyped]
 
 from .interface import IAsyncMassClient
-
-
-DEBUG = False
 
 
 class SerialMassClient(IAsyncMassClient):
@@ -40,23 +38,37 @@ class SerialMassClient(IAsyncMassClient):
 
     def __init__(
         self,
-        buad: int,
-        serial_timeout_seconds: int,
+        template: Serial | None = None
     ) -> None:
         """Parameters
         ----------
-        baud: The baud of the serial connections
-        timeout_seconds: The timeout for connections in seconds (read & write)
+        template (Optional): A template (ideally closed) serial port
+            whose parameters will be used for opening all new ports
         """
         self.__available_ports: dict[str, Serial] = {}
-        self.__baud: int = buad
-        self.__timeout_seconds: int = serial_timeout_seconds
+        self.__constructor_parameters = signature(SerialBase).parameters
+        self.__template: Serial
+        self.template = template
 
     @property
     def ports(self) -> dict[str, Serial]:
-        """A dictionary of available ports mapping port names to port objects
-        """
+        """A dictionary of available ports mapping port names to port objects"""
         return self.__available_ports
+
+    @property
+    def template(self) -> Serial:
+        """The template serial port whose parameters will be used for opening
+            all new ports
+        """
+        return self.__template
+
+    @template.setter
+    def template(self, template: Serial | None) -> None:
+        if not template:
+            template = Serial(timeout=1, write_timeout=1)
+        elif template.is_open:
+            template.close()
+        self.__template = template
 
     def close(self, port: str | Serial) -> None:
         """Close a port
@@ -102,7 +114,7 @@ class SerialMassClient(IAsyncMassClient):
 
         Parameters
         ----------
-        port_names: The list of port names to open, or None to open all
+        port_names (Optional): The list of port names to open, or None to open all
 
         Returns
         -------
@@ -120,12 +132,12 @@ class SerialMassClient(IAsyncMassClient):
 
         # Asynchronously attempt to open ports
         pool = ThreadPool(processes=len(port_names))
-        async_results = []
+        async_results: list[AsyncResult] = []
         for port_name in port_names:
             async_results.append(
                 pool.apply_async(
-                    self.open,
-                    (port_name,)
+                    func=self.open,
+                    args=(port_name,)
                 )
             )
         pool.close()
@@ -169,8 +181,8 @@ class SerialMassClient(IAsyncMassClient):
                 (
                     port.port,
                     pool.apply_async(
-                        self.read,
-                        (port, num_bytes)
+                        func=self.read,
+                        args=(port, num_bytes)
                     )
                 )
             )
@@ -209,8 +221,8 @@ class SerialMassClient(IAsyncMassClient):
                 (
                     port.port,
                     pool.apply_async(
-                        self.write,
-                        (port, message)
+                        func=self.write,
+                        args=(port, message)
                     )
                 )
             )
@@ -230,14 +242,15 @@ class SerialMassClient(IAsyncMassClient):
         The serial port if it was opened, otherwise None
         """
         try:
-            port = Serial(
-                port_name,
-                self.__baud,
-                timeout=self.__timeout_seconds,
-                write_timeout=self.__timeout_seconds
-            )
+            args = {}
+            for key, value in self.__template.__dict__.items():
+                if key[0] == '_':
+                    key = key[1:]
+                if key in self.__constructor_parameters and key != 'port':
+                    args[key] = value
+            port = Serial(port=port_name, **args)
             self.__available_ports[port.port] = port  # type: ignore
-            sleep(self.__timeout_seconds)  # Wait for port to finish opening
+            sleep(1)  # Wait for port to finish opening
             return port
         except (OSError, SerialException, SerialTimeoutException):
             return None
@@ -259,8 +272,6 @@ class SerialMassClient(IAsyncMassClient):
                 bytes_read = port.read(num_bytes)
             else:
                 bytes_read = port.read_all()
-            if DEBUG:
-                print(f"{port.port} in: {bytes_read}")
             return bytes_read
         except (OSError, SerialException, SerialTimeoutException):
             return None
@@ -280,8 +291,6 @@ class SerialMassClient(IAsyncMassClient):
         try:
             bytes_sent = port.write(message)
             port.flush()
-            if DEBUG:
-                print(f"{port.port} out: {message} ({bytes_sent} bytes)") # type: ignore
             return bytes_sent
         except (OSError, SerialException, SerialTimeoutException):
             return None

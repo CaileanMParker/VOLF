@@ -14,6 +14,7 @@ print_help: Print help text
 from winsound import Beep
 
 from pynput.keyboard import Key, KeyCode, Listener
+from serial import Serial  # type: ignore[import-untyped]
 
 from audio_streamer import AudioStreamer
 from asyncmassclients import SerialMassClient
@@ -119,7 +120,13 @@ if __name__ == "__main__":
     audio_streamer = AudioStreamer()
     channel_transmitter = ChannelTransmitter(
         TRANSMISSION_CHANNELS_UPPER_BOUND,
-        SerialMassClient(BAUD, SERIAL_TIMEOUT_SECONDS)
+        SerialMassClient(
+            Serial(
+                baudrate=BAUD,
+                timeout=SERIAL_TIMEOUT_SECONDS,
+                write_timeout=SERIAL_TIMEOUT_SECONDS
+            )
+        )
     )
     keyboard_callbacks = KeyboardCallbacks(audio_streamer, channel_transmitter)
     audio_streamer.start()

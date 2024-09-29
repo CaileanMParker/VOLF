@@ -86,8 +86,9 @@ class ChannelTransmitter(metaclass=Singleton):
 
         # Send a byte to be echoed back by valid transmitters
         message_int = randint(58, 126)
-        message = chr(message_int).encode()
-        write_results = self.__transmission_client.mass_write(message)
+        write_results = self.__transmission_client.mass_write(
+            chr(message_int).encode()
+        )
         # Remove ports for which writing failed
         for result in write_results:
             port_name, async_results = result
@@ -108,12 +109,11 @@ class ChannelTransmitter(metaclass=Singleton):
             return
 
         # Read from ports to check for expected response
-        expected_response = chr(message_int ^ 49).encode()
         read_results = self.__transmission_client.mass_read(1)
         # Remove ports for which reading failed or response is incorrect
         for result in read_results:
             port_name, async_results = result
-            if async_results.get() != expected_response:
+            if async_results.get() != chr(message_int ^ 49).encode():
                 self.__transmission_client.close(port_name)
 
         if _DEBUG:
