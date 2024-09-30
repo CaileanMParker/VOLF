@@ -19,7 +19,7 @@ from singleton_type import Singleton
 _DEBUG = False
 
 
-class ChannelTransmitter(metaclass=Singleton):
+class ChannelTransmitter(Singleton):
     """A class for transmitting channels to LiFi transmitters
 
     Attributes
