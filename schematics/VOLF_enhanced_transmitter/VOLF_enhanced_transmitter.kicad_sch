@@ -1872,7 +1872,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "82ea3c7e-040f-40dc-a06f-7994bdda4308")
-		(property "Reference" "C?"
+		(property "Reference" "C1"
 			(at 96.0881 60.96 0)
 			(effects
 				(font
@@ -1888,7 +1888,6 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
-				(hide yes)
 			)
 		)
 		(property "Footprint" ""
@@ -1927,7 +1926,7 @@
 		(instances
 			(project "VOLK_enhanced_transmitter"
 				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
-					(reference "C?")
+					(reference "C1")
 					(unit 1)
 				)
 			)

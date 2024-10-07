@@ -1,0 +1,13 @@
+1. Construct the transmitter circuit per the "VOLF_passive_transmitter" schematic.
+	- The LED in this schematic is a 10W bulb. This same configuration can be used with a larger power source and thus a higher wattage LED bulb (such as those used in building light fixtures) by adjusting the values of resistors accordingly and potentially swapping in a MOSFET with a higher power tolerance, is necessary.
+	- The variable resistor in this schematic can be used to adjust the brightness of the LED bulb. This is useful for calibrating the transmitter to the receiver.
+2. Construct the receiver circuit per the "VOLF_passive_receiver" schematic.
+	- This schematic includes two 5V solar cells, but a larger cell or array of cells can be used to increase the strength of the audio signal (being careful not to over-volt the device receiving audio from the receiver, as 3.5mm audio jacks operate on 0.77 volts RMS (2.2 volts peak-to-peak)).
+	- The variable resistor in this schematic can be used to adjust the current of the signal put onto the audio output, effectively adjusting the volume of the audio signal.
+3. To operate the system:
+	a. Connect the 3.5mm audio jack of the transmitter to the audio output of some device (such as a phone or computer).
+	c. Connect the 3.5mm audio jack of the receiver to an audio output device (such as a speaker or headphones).
+	d. Aim the LED on the transmitter at the solar cells of the receiver
+		- It's worth noting that while this system does not require a direct line of sight between the transmitter and receiver (rather, "line of light", which reflects), the strength of the audio signal will be stronger if the LED is aimed directly at the solar cells, and will be proportional to the distance between them.
+	e. Play audio from the device connected to the transmitter
+		- While the system should be able to transmit any audio, normal speech works best, as low frequencies (such as in music) will cause visible flickering of the LED
