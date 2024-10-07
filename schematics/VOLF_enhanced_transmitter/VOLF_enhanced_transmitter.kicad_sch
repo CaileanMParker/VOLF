@@ -1796,7 +1796,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "13828698-1a41-45bb-ab9a-de8f0862b0cb")
-		(property "Reference" "R?"
+		(property "Reference" "R1"
 			(at 105.41 53.3399 0)
 			(effects
 				(font
@@ -1850,7 +1850,7 @@
 		(instances
 			(project "VOLK_enhanced_transmitter"
 				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
-					(reference "R?")
+					(reference "R1")
 					(unit 1)
 				)
 			)
@@ -1947,22 +1947,23 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "8ca6cc61-2d5f-4799-b3f5-183184afdc5b")
-		(property "Reference" "J?"
-			(at 83.185 74.93 0)
+		(property "Reference" "J1"
+			(at 86.106 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 			)
 		)
 		(property "Value" "AudioJack3"
-			(at 83.185 72.39 0)
+			(at 89.662 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -2004,7 +2005,7 @@
 		(instances
 			(project "VOLK_enhanced_transmitter"
 				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
-					(reference "J?")
+					(reference "J1")
 					(unit 1)
 				)
 			)
@@ -2098,7 +2099,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a5c7d126-daf4-4841-9121-3fd9596a5908")
-		(property "Reference" "R?"
+		(property "Reference" "R2"
 			(at 105.41 68.5799 0)
 			(effects
 				(font
@@ -2152,7 +2153,7 @@
 		(instances
 			(project "VOLK_enhanced_transmitter"
 				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
-					(reference "R?")
+					(reference "R2")
 					(unit 1)
 				)
 			)
@@ -2174,7 +2175,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a7395176-85fe-4074-aecc-ae864eedb22e")
-		(property "Reference" "Q?"
+		(property "Reference" "Q1"
 			(at 116.84 62.2299 0)
 			(effects
 				(font
@@ -2234,7 +2235,7 @@
 		(instances
 			(project "VOLK_enhanced_transmitter"
 				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
-					(reference "Q?")
+					(reference "Q1")
 					(unit 1)
 				)
 			)
@@ -2328,22 +2329,20 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c228958d-b03b-4e28-832f-330a830e7b6b")
-		(property "Reference" "R?"
-			(at 107.9118 44.45 0)
+		(property "Reference" "R3"
+			(at 109.1819 40.64 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "100k"
-			(at 110.4518 44.45 0)
+			(at 109.1819 43.18 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -2382,7 +2381,7 @@
 		(instances
 			(project "VOLK_enhanced_transmitter"
 				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
-					(reference "R?")
+					(reference "R3")
 					(unit 1)
 				)
 			)
@@ -2469,7 +2468,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e09c1639-9bb4-482c-84bb-33848e14a14a")
-		(property "Reference" "D?"
+		(property "Reference" "D1"
 			(at 117.7925 49.53 0)
 			(effects
 				(font
@@ -2521,7 +2520,7 @@
 		(instances
 			(project "VOLK_enhanced_transmitter"
 				(path "/18397c79-8016-4b55-8616-aabd5bfb4047"
-					(reference "D?")
+					(reference "D1")
 					(unit 1)
 				)
 			)

@@ -2497,22 +2497,23 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "5e00ec23-35c0-40f8-85c1-ee0bf6194448")
 		(property "Reference" "J1"
-			(at 133.985 67.31 0)
+			(at 132.08 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 			)
 		)
 		(property "Value" "AudioJack3"
-			(at 133.985 64.77 0)
+			(at 128.016 64.516 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -2554,6 +2555,12 @@
 		(instances
 			(project ""
 				(path "/b58e6bc4-c379-4e3c-959a-c8afc3fb126f"
+					(reference "J1")
+					(unit 1)
+				)
+			)
+			(project "VOLF_enhanced_receiver"
+				(path "/d5ab7ffb-ff24-4b3e-a886-a1c4ffbedf87"
 					(reference "J1")
 					(unit 1)
 				)
@@ -2689,6 +2696,12 @@
 		(instances
 			(project ""
 				(path "/b58e6bc4-c379-4e3c-959a-c8afc3fb126f"
+					(reference "SC1")
+					(unit 1)
+				)
+			)
+			(project "VOLF_enhanced_receiver"
+				(path "/d5ab7ffb-ff24-4b3e-a886-a1c4ffbedf87"
 					(reference "SC1")
 					(unit 1)
 				)
@@ -2829,6 +2842,12 @@
 					(unit 1)
 				)
 			)
+			(project "VOLF_enhanced_receiver"
+				(path "/d5ab7ffb-ff24-4b3e-a886-a1c4ffbedf87"
+					(reference "R?")
+					(unit 1)
+				)
+			)
 		)
 	)
 	(symbol
@@ -2921,7 +2940,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "R_US"
+		(property "Value" "10k"
 			(at 78.74 68.5799 0)
 			(effects
 				(font
@@ -3034,6 +3053,12 @@
 		(instances
 			(project ""
 				(path "/b58e6bc4-c379-4e3c-959a-c8afc3fb126f"
+					(reference "C1")
+					(unit 1)
+				)
+			)
+			(project "VOLF_enhanced_receiver"
+				(path "/d5ab7ffb-ff24-4b3e-a886-a1c4ffbedf87"
 					(reference "C1")
 					(unit 1)
 				)
