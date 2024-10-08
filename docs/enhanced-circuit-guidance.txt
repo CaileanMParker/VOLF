@@ -1,0 +1,23 @@
+1. Upload the transmitter firmware (VOLF/src/transmitter) to the MCU you will be using in transmitter circuit.
+	- The firmware was written using the Arduino framework, meaning it should work on any MCU for which a sufficient Arduino core exists, however, having been written and tested on an ATmega2560, the PlatformIO project (platformio.ini) is configured for that MCU and would need to be reconfigured accordingly to support other MCUs.
+2. Construct the transmitter circuit per the "VOLF_enhanced_transmitter" schematic.
+	- As designated in the schematic, the firmware uses Digital Pin 2 (as designated by your MCU's core) to inject the digital channel code signals onto the audio input line.
+	- The LED in this schematic is a 10W bulb. This same configuration can be used with a larger power source and thus a higher wattage LED bulb (such as those used in building light fixtures) by adjusting the values of resistors accordingly and potentially swapping in a MOSFET with a higher power tolerance, is necessary.
+	- The variable resistor in this schematic can be used to adjust the brightness of the LED bulb. This is useful for calibrating the transmitter to the receiver.
+3. Upload the receiver firmware (VOLF/src/receiver) to the MCU you will be using in receiver circuit.
+	- The firmware was written using the Arduino framework, meaning it should work on any MCU for which a sufficient Arduino core exists, however, having been written and tested on an ATmega2560, the PlatformIO project (platformio.ini) is configured for that MCU and would need to be reconfigured accordingly to support other MCUs.
+4. Construct the receiver circuit per the "VOLF_passive_receiver" schematic.
+	- As designated in the schematic, the firmware uses Analog Pin 0, Digital Pin 2, and Digital Pin 3 (as designated by your MCU's core) to sample for the digital channel code signal, control the "audio gate" relay, and read a button to control the internally set channel, respectively.
+	- This schematic includes two 5V solar cells, but a larger cell or array of cells can be used to increase the strength of the audio signal (being careful not to over-volt the device receiving audio from the receiver, as 3.5mm audio jacks operate on 0.77 volts RMS (2.2 volts peak-to-peak)).
+	- The variable resistor in this schematic can be used to adjust the current of the signal put onto the audio output, effectively adjusting the volume of the audio signal.
+5. Connect the transmitter MCU to whatever device will be acting as your server via a serial connection
+	- The "server" is the device that will be sending channel codes and streaming audio to the transmitter, which in most cases will likely be a computer.
+	- If using an MCU development board, the serial connection is likely most easily established by plugging the USB port on the board into the server.
+6. Connect the 3.5mm audio jack of the transmitter to the audio output of your server.
+7. Connect the 3.5mm audio jack of the receiver to an audio output device (such as a speaker or headphones).
+8. Aim the LED on the transmitter at the solar cells of the receiver
+	- It's worth noting that while this system does not require a direct line of sight between the transmitter and receiver (rather, "line of light", which reflects), the strength of the audio signal will be stronger if the LED is aimed directly at the solar cells, and will be proportional to the distance between them.
+9. Run the applicable transmission control software on the server
+	- We have included our own transmission control software in this repo in the form as a Python program (VOLF/src/transmitter), run by executing the main.py file (ensure you have the necessary dependencies installed by running `pip install -r requirements.txt`).
+	- If writing your own transmission control software, your program should transmit the channel code to the transmitter MCU via the serial connection and await an echoed response before beginning to stream audio. All communications with the transmitter MCU are achieved by sending single bytes via serial. The transmitter MCU will echo every byte it receives, XOR'd by 49 (0x31, the ASCII character '1'). This is to more easily identify the MCU's responses from other simple echos from other, unrelated devices. If the byte sent to the transmitter is a digit (0 - 9), the transmitter will interpret it as a channel code and inject it onto the transmitters audio line before returning the XOR'd response to confirm the completion of the transmission and signaling that audio can begin streaming.
+	- While the system should be able to transmit any audio, normal speech works best, as low frequencies (such as in music) will cause visible flickering of the LED

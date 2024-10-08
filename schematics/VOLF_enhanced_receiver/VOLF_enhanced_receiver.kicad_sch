@@ -2844,7 +2844,7 @@
 			)
 			(project "VOLF_enhanced_receiver"
 				(path "/d5ab7ffb-ff24-4b3e-a886-a1c4ffbedf87"
-					(reference "R?")
+					(reference "R1")
 					(unit 1)
 				)
 			)
