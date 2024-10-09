@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-#define DEBUG
+// #define DEBUG
 // #define VERBOSE_DEBUG
 // #define READONLY
 
@@ -36,7 +36,7 @@ namespace configs {
   inline constexpr uint32_t pulseWidthMillis = 5;
 
   /// @brief The pin on which the incoming LiFi signal is sampled
-  inline constexpr uint8_t receivePin = A1;
+  inline constexpr uint8_t receivePin = A0;
 }
 
 /**

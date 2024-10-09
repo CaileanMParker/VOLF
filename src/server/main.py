@@ -117,7 +117,10 @@ def print_help() -> None:
 if __name__ == "__main__":
     print("Initializing...")
     print_help()
-    audio_streamer = AudioStreamer()
+    audio_streamer = AudioStreamer(
+        input_device_name="Microphone Array",
+        output_device_name="Headphones"
+    )
     channel_transmitter = ChannelTransmitter(
         TRANSMISSION_CHANNELS_UPPER_BOUND,
         SerialMassClient(
