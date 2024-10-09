@@ -1,6 +1,6 @@
 1. Add display to receiver to show what channel it is set to and what channel is being broadcasted
 2. Experiment with ways to introduce resiliency to the channel transmission (generally seems to be a timing issue)
-5. Create schematics
+5. Fix enhanced receiver schematic to move capacitor and put solar cells in series
 7. Add feature to receiver to release transmission channel after a certain period of silence
 8. Determine why channel transmission is so visible/audible and how to resolve it
 9. Get receiver circuit working with enhancement MOSFET instead or relay
